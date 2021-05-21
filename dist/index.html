@@ -25,7 +25,7 @@
             <div class="field">
               <div class="ui right labeled fluid input">
                 <label for="amount" class="ui label">$</label>
-                <input type="number" placeholder="Amount" id="amount" />
+                <input inputmode="numeric" placeholder="Amount" id="amount" />
                 <div class="ui basic label">.00</div>
               </div>
             </div>
@@ -33,11 +33,30 @@
         </section>
         <section class="ui segment">
           <h2 class="centered">Select Card</h2>
-          <div class="centered">
+          <div class="spaced">
             <button class="ui green button" data-card-id="1234">1234</button>
             <button class="ui green button" data-card-id="2345">2345</button>
             <button class="ui green button" data-card-id="3456">3456</button>
           </div>
+        </section>
+        <section class="ui segment" id="recent-transactions">
+          <h2 class="centered">Recent Transactons</h2>
+          <table class="ui striped two column green very compact small table">
+            <tbody>
+              <tr>
+                <td>Solid State</td>
+                <td>M <i class="right triangle icon"></i>P: $30.00</td>
+              </tr>
+              <tr>
+                <td>Grimm</td>
+                <td>P <i class="right triangle icon"></i>M: $20.00</td>
+              </tr>
+              <tr>
+                <td>Sotto Le Stelle</td>
+                <td>M <i class="right triangle icon"></i>P: $10.00</td>
+              </tr>
+            </tbody>
+          </table>
         </section>
       </div>
     </div>
