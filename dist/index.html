@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Who-Owes-Who</title>
+    <link rel="stylesheet" href="/lib/semantic-ui/semantic.min.css" />
+    <link rel="stylesheet" href="/src/css/style.css" />
+    <script src="/lib/jquery/jquery-3.1.1.min.js" defer></script>
+    <script src="/lib/semantic-ui/semantic.min.js" defer></script>
+    <script src="src/js/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app">
+      <div class="ui container">
+        <section class="ui segment">
+          <form class="ui form">
+            <h2 class="centered">Transaction Details</h2>
+            <div class="field">
+              <div class="ui fluid input">
+                <input type="text" placeholder="Merchant" />
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui right labeled fluid input">
+                <label for="amount" class="ui label">$</label>
+                <input type="number" placeholder="Amount" id="amount" />
+                <div class="ui basic label">.00</div>
+              </div>
+            </div>
+          </form>
+        </section>
+        <section class="ui segment">
+          <h2 class="centered">Select Card</h2>
+          <div class="centered">
+            <button class="ui green button" data-card-id="1234">1234</button>
+            <button class="ui green button" data-card-id="2345">2345</button>
+            <button class="ui green button" data-card-id="3456">3456</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
