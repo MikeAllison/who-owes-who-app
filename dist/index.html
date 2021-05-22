@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/style.css" />
     <script src="./lib/jquery/jquery-3.1.1.min.js" defer></script>
     <script src="./lib/semantic-ui/semantic.min.js" defer></script>
-    <script src="./js/app.js" defer></script>
+    <script src="./js/app.js" type="module" defer></script>
   </head>
   <body>
     <div class="app">
@@ -19,14 +19,17 @@
             <h2 class="centered">Transaction Details</h2>
             <div class="field">
               <div class="ui fluid input">
-                <input type="text" placeholder="Merchant" />
+                <input type="text" placeholder="Merchant" id="merchant-input" />
               </div>
             </div>
             <div class="field">
-              <div class="ui right labeled fluid input">
-                <label for="amount" class="ui label">$</label>
-                <input inputmode="decimal" placeholder="Amount" id="amount" />
-                <div class="ui basic label">.00</div>
+              <div class="ui labeled fluid input">
+                <label for="amount-input" class="ui label">$</label>
+                <input
+                  inputmode="decimal"
+                  placeholder="Amount"
+                  id="amount-input"
+                />
               </div>
             </div>
           </form>
@@ -34,9 +37,21 @@
         <section class="ui segment">
           <h2 class="centered">Select Card</h2>
           <div class="spaced">
-            <button class="ui green button" data-card-id="1234">1234</button>
-            <button class="ui green button" data-card-id="2345">2345</button>
-            <button class="ui green button" data-card-id="3456">3456</button>
+            <button class="ui green button card-btn" data-card-id="1234">
+              1234
+            </button>
+            <button class="ui green button card-btn" data-card-id="2345">
+              2345
+            </button>
+            <button class="ui green button card-btn" data-card-id="3456">
+              3456
+            </button>
+          </div>
+        </section>
+        <section class="ui segment">
+          <h2 class="centered">Tally</h2>
+          <div class="centered">
+            M <i class="right triangle icon"></i>P: $20.00
           </div>
         </section>
         <section class="ui segment" id="recent-transactions">
