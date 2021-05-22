@@ -14,13 +14,17 @@
   <body>
     <div class="app">
       <div class="ui container">
-        <section class="ui segment">
-          <form class="ui form">
+        <section class="ui green segment">
+          <form class="ui form" autocomplete="off">
             <h2 class="centered">Transaction Details</h2>
             <div class="field">
-              <div class="ui fluid input">
-                <input type="text" placeholder="Merchant" id="merchant-input" />
-              </div>
+              <select
+                name="merchant-select"
+                id="merchant-select"
+                class="ui search dropdown"
+              >
+                <option value="">Select Merchant</option>
+              </select>
             </div>
             <div class="field">
               <div class="ui labeled fluid input">
@@ -34,7 +38,7 @@
             </div>
           </form>
         </section>
-        <section class="ui segment">
+        <section class="ui green segment">
           <h2 class="centered">Select Card</h2>
           <div class="spaced">
             <button class="ui green button card-btn" data-card-id="1234">
@@ -48,13 +52,13 @@
             </button>
           </div>
         </section>
-        <section class="ui segment">
+        <section class="ui green segment">
           <h2 class="centered">Tally</h2>
           <div class="centered">
             M <i class="right triangle icon"></i>P: $20.00
           </div>
         </section>
-        <section class="ui segment" id="recent-transactions">
+        <section class="ui green segment" id="recent-transactions">
           <h2 class="centered">Recent Transactons</h2>
           <table class="ui striped two column green very compact small table">
             <tbody>
