@@ -15,7 +15,7 @@ class App {
 
   init() {
     // Initialize merchant dropdown
-    this.merchantList.sort().forEach(merchant => {
+    this.merchantList.forEach(merchant => {
       const optionEl = document.createElement('option');
       optionEl.setAttribute('value', merchant.id);
       optionEl.innerText = merchant.name;
