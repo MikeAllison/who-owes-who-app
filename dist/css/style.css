@@ -2,15 +2,6 @@
   --semantic-green: #21ba45;
 }
 
-.centered {
-  display: flex;
-  justify-content: center;
-}
-
-.text-centered {
-  text-align: center;
-}
-
 .spaced {
   display: flex;
   justify-content: space-between;
