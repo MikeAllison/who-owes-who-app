@@ -6,6 +6,7 @@ class App {
     this.amountInput = document.getElementById('amount-input');
     this.cardBtns = document.querySelectorAll('.card-btn');
 
+    // TODO: Remember to return from DB sorted
     this.merchantList = [
       { id: 1, name: 'Solid State' },
       { id: 2, name: 'Grimm' },

@@ -1,3 +1,7 @@
+:root {
+  --semantic-green: #21ba45;
+}
+
 .centered {
   display: flex;
   justify-content: center;
@@ -14,6 +18,11 @@
 
 .app {
   padding-top: 20px;
+}
+
+.label {
+  background-color: var(--semantic-green) !important;
+  color: #fff !important;
 }
 
 #recent-transactions > .list > .item > * {
