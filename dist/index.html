@@ -12,73 +12,71 @@
     <script src="./js/app.js" type="module" defer></script>
   </head>
   <body>
-    <div class="app">
-      <div class="ui container">
-        <section class="ui green center aligned raised segment">
-          <form class="ui form">
-            <h2>Transaction Details</h2>
-            <div class="field">
-              <select
-                name="merchant-select"
-                id="merchant-select"
-                class="ui search dropdown"
-              >
-                <option value="">Select Merchant</option>
-              </select>
+    <div class="ui container" id="app">
+      <section class="ui green center aligned raised segment">
+        <form class="ui form">
+          <h2>Transaction Details</h2>
+          <div class="field">
+            <select
+              name="merchant-select"
+              id="merchant-select"
+              class="ui search dropdown"
+            >
+              <option value="">Select Merchant</option>
+            </select>
+          </div>
+          <div class="field">
+            <div class="ui labeled fluid input">
+              <label for="amount-input" class="ui label">$</label>
+              <input
+                inputmode="decimal"
+                placeholder="Amount"
+                id="amount-input"
+              />
             </div>
-            <div class="field">
-              <div class="ui labeled fluid input">
-                <label for="amount-input" class="ui label">$</label>
-                <input
-                  inputmode="decimal"
-                  placeholder="Amount"
-                  id="amount-input"
-                />
-              </div>
-            </div>
-          </form>
-          <section class="ui green center aligned segment">
-            <h2>Select Card</h2>
-            <div class="spaced">
-              <button class="ui green button card-btn" data-card-id="1234">
-                1234
-              </button>
-              <button class="ui green button card-btn" data-card-id="2345">
-                2345
-              </button>
-              <button class="ui green button card-btn" data-card-id="3456">
-                3456
-              </button>
-            </div>
-          </section>
+          </div>
+        </form>
+        <section class="ui green center aligned segment">
+          <h2>Select Card</h2>
+          <div class="spaced">
+            <button class="ui green button card-btn" data-card-id="1234">
+              1234
+            </button>
+            <button class="ui green button card-btn" data-card-id="2345">
+              2345
+            </button>
+            <button class="ui green button card-btn" data-card-id="3456">
+              3456
+            </button>
+          </div>
         </section>
-        <section class="ui green center aligned raised segment">
-          <h2>Tally</h2>
-          <div>M <i class="right green triangle icon"></i>P: $20.00</div>
-        </section>
-        <section
-          class="ui green center aligned raised segment"
-          id="recent-transactions"
-        >
-          <h2>Recent Transactons</h2>
-          <table class="ui striped two column green very compact small table">
-            <tbody>
-              <tr>
-                <td>Solid State</td>
-                <td>M <i class="right green triangle icon"></i>P: $30.00</td>
-              </tr>
-              <tr>
-                <td>Grimm</td>
-                <td>P <i class="right green triangle icon"></i>M: $20.00</td>
-              </tr>
-              <tr>
-                <td>Sotto Le Stelle</td>
-                <td>M <i class="right green triangle icon"></i>P: $10.00</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-      </div>
+      </section>
+      <section class="ui green center aligned raised segment">
+        <h2>Tally</h2>
+        <div>M <i class="right green triangle icon"></i>P: $20.00</div>
+      </section>
+      <section
+        class="ui green center aligned raised segment"
+        id="recent-transactions"
+      >
+        <h2>Recent Transactons</h2>
+        <table class="ui striped two column green very compact small table">
+          <tbody>
+            <tr>
+              <td>Solid State</td>
+              <td>M <i class="right green triangle icon"></i>P: $30.00</td>
+            </tr>
+            <tr>
+              <td>Grimm</td>
+              <td>P <i class="right green triangle icon"></i>M: $20.00</td>
+            </tr>
+            <tr>
+              <td>Sotto Le Stelle</td>
+              <td>M <i class="right green triangle icon"></i>P: $10.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
     </div>
   </body>
 </html>

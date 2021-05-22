@@ -7,13 +7,13 @@
   justify-content: space-between;
 }
 
-.app {
-  padding-top: 20px;
-}
-
 .label {
   background-color: var(--semantic-green) !important;
   color: #fff !important;
+}
+
+#app {
+  padding-top: 14px;
 }
 
 #recent-transactions > .list > .item > * {
