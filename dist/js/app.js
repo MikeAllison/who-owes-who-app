@@ -1,21 +1,24 @@
 import { Transaction } from './transaction.js';
+import { RecentTransactionsTable } from './recent-transactions-table.js';
 
 class App {
   constructor() {
     this.merchantSelect = document.getElementById('merchant-select');
     this.amountInput = document.getElementById('amount-input');
     this.cardBtns = document.querySelectorAll('.card-btn');
-    this.transactionTableBody = document.getElementById(
-      'transaction-table-body'
+    this.recentTransactionsTable = new RecentTransactionsTable(
+      'recent-transactions-table'
     );
 
+    // TODO: Remove data
     this.merchantList = [
       { id: 1, name: 'Solid State' },
       { id: 2, name: 'Grimm' },
       { id: 3, name: 'Sotto Le Stelle' }
     ];
 
-    this.transactionList = [
+    // TODO: Remove data
+    this.transactions = [
       {
         merhantName: 'Solid State',
         date: '5/21/21',
@@ -66,17 +69,7 @@ class App {
       });
     });
 
-    // Initalize recent transactions list
-    this.transactionList.forEach(transaction => {
-      const trEl = document.createElement('tr');
-      trEl.innerHTML = `
-        <td>${transaction.merhantName} - ${transaction.date}</td>
-        <td><i class="green money bill alternate outline icon"></i>${
-          transaction.cardholderName
-        } - $${transaction.amount.toFixed(2)}</td>
-      `;
-      this.transactionTableBody.appendChild(trEl);
-    });
+    this.recentTransactionsTable.render(this.transactions);
   }
 }
 

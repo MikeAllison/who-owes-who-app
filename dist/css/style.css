@@ -19,3 +19,15 @@
 #tally > p {
   margin-bottom: 2px;
 }
+
+@media screen and (max-width: 767px) {
+  #recent-transactions-table > table > tbody > tr {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  #recent-transactions-table > table > tbody > tr > td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+}
