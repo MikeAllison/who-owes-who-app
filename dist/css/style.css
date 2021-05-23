@@ -16,8 +16,8 @@
   padding-top: 14px;
 }
 
-#tally > p {
-  margin-bottom: 2px;
+#tally-section > * {
+  margin: 2px;
 }
 
 @media screen and (max-width: 767px) {
