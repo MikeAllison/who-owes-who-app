@@ -5,12 +5,35 @@ class App {
     this.merchantSelect = document.getElementById('merchant-select');
     this.amountInput = document.getElementById('amount-input');
     this.cardBtns = document.querySelectorAll('.card-btn');
+    this.transactionTableBody = document.getElementById(
+      'transaction-table-body'
+    );
 
-    // TODO: Remember to return from DB sorted
     this.merchantList = [
       { id: 1, name: 'Solid State' },
       { id: 2, name: 'Grimm' },
       { id: 3, name: 'Sotto Le Stelle' }
+    ];
+
+    this.transactionList = [
+      {
+        merhantName: 'Solid State',
+        date: '5/21/21',
+        cardholderName: 'Dr. P',
+        amount: 20.0
+      },
+      {
+        merhantName: 'Sotto Le Stelle',
+        date: '4/20/21',
+        cardholderName: 'Dr. P',
+        amount: 10.0
+      },
+      {
+        merhantName: 'Grimm',
+        date: '4/21/21',
+        cardholderName: 'Me',
+        amount: 30.0
+      }
     ];
   }
 
@@ -41,6 +64,16 @@ class App {
         //// Update recent transactions
         //// Clear inputs
       });
+    });
+
+    // Initalize recent transactions list
+    this.transactionList.forEach(transaction => {
+      const trEl = document.createElement('tr');
+      trEl.innerHTML = `
+        <td>${transaction.merhantName} - ${transaction.date}</td>
+        <td><i class="green money bill alternate outline icon"></i>${transaction.cardholderName} - $${transaction.amount}</td>
+      `;
+      this.transactionTableBody.appendChild(trEl);
     });
   }
 }

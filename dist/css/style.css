@@ -16,6 +16,6 @@
   padding-top: 14px;
 }
 
-#recent-transactions > .list > .item > * {
-  display: inline;
+#tally > p {
+  margin-bottom: 2px;
 }
