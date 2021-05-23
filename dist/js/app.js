@@ -71,7 +71,9 @@ class App {
       const trEl = document.createElement('tr');
       trEl.innerHTML = `
         <td>${transaction.merhantName} - ${transaction.date}</td>
-        <td><i class="green money bill alternate outline icon"></i>${transaction.cardholderName} - $${transaction.amount}</td>
+        <td><i class="green money bill alternate outline icon"></i>${
+          transaction.cardholderName
+        } - $${transaction.amount.toFixed(2)}</td>
       `;
       this.transactionTableBody.appendChild(trEl);
     });
