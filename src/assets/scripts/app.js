@@ -7,7 +7,7 @@ class App {
     this.amountInput = document.getElementById('amount-input');
     this.cardBtns = document.querySelectorAll('.card-btn');
     this.recentTransactionsTable = new RecentTransactionsTable(
-      'recent-transactions-table'
+      'recent-transactions'
     );
 
     // TODO: Remove data
