@@ -2,12 +2,12 @@ export class RecentTransactionsTable extends HTMLElement {
   constructor(renderHook) {
     super();
     this.renderHook = document.getElementById(renderHook);
-    this.classList = 'ui striped two column green very compact small table';
+    this.cssClasses = 'ui striped two column green very compact small table';
   }
 
   render(transactions) {
     const tableEl = document.createElement('table');
-    tableEl.classList = this.classList;
+    tableEl.classList = this.cssClasses;
 
     transactions.forEach(transaction => {
       tableEl.innerHTML += `
