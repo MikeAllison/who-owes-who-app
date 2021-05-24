@@ -1,7 +1,6 @@
 export class RecentTransactionsTable extends HTMLTableElement {
   constructor(renderHook) {
     super();
-
     this.renderHook = document.getElementById(renderHook);
     this.cssClasses = 'ui striped two column green very compact small table';
   }
