@@ -12,10 +12,10 @@ export class RecentTransactionsTable extends HTMLElement {
     transactions.forEach(transaction => {
       tableEl.innerHTML += `
         <tr>
-          <td>${transaction.merhantName} - ${transaction.date}</td>
+          <td>${transaction.merhant} - ${transaction.date}</td>
           <td>
             <i class="green money bill alternate outline icon"></i>
-            ${transaction.cardholderName} - $${transaction.amount.toFixed(2)}
+            ${transaction.cardholder} - $${transaction.amount.toFixed(2)}
           </td>
         </tr>`;
     });

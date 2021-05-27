@@ -20,21 +20,18 @@ class App {
     // TODO: Remove data
     this.transactions = [
       {
-        merhantName: 'Solid State',
+        merhant: 'Solid State',
         date: '5/21/21',
-        cardholderName: 'Dr. P',
         amount: 20.0
       },
       {
-        merhantName: 'Sotto Le Stelle',
+        merhant: 'Sotto Le Stelle',
         date: '4/20/21',
-        cardholderName: 'Dr. P',
         amount: 10.0
       },
       {
-        merhantName: 'Grimm',
+        merhant: 'Grimm',
         date: '4/21/21',
-        cardholderName: 'Me',
         amount: 30.0
       }
     ];
