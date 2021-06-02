@@ -5,7 +5,7 @@ class App {
   constructor() {
     this.merchantSelect = document.getElementById('merchant-select');
     this.amountInput = document.getElementById('amount-input');
-    this.cardBtns = document.querySelectorAll('.card-btn');
+    this.submitBtnSection = document.getElementById('submit-btn-section');
     this.recentTransactionsTable = new RecentTransactionsTable(
       'recent-transactions'
     );
@@ -49,22 +49,38 @@ class App {
     $('select.dropdown').dropdown();
 
     // Initialize card number submit buttons
-    this.cardBtns.forEach(btn => {
-      btn.addEventListener('click', e => {
-        const transaction = new Transaction(
-          e.currentTarget.dataset.cardId,
-          this.merchantSelect.value,
-          this.amountInput.value
-        );
-        // Check values
-        // Submit
-        console.dir(transaction);
-        // Handle submit errors
-        // If successful...
-        //// Update recent transactions
-        //// Clear inputs
-      });
-    });
+    fetch('http://localhost:3000/cards')
+      .then(response => response.json())
+      .then(data => {
+        data.cards.forEach(card => {
+          const btn = document.createElement('button');
+          btn.classList = 'ui green button card-btn';
+          btn.dataset.cardId = card.id;
+          btn.innerText = card.id;
+          this.submitBtnSection.appendChild(btn);
+
+          btn.addEventListener('click', e => {
+            const transaction = new Transaction(
+              e.currentTarget.dataset.cardId,
+              this.merchantSelect.value,
+              this.amountInput.value
+            );
+            // Check values
+            // Submit
+            console.dir(transaction);
+            // Handle submit errors
+            // If successful...
+            //// Update recent transactions
+            //// Clear inputs
+          });
+        });
+      })
+      .catch(err => console.log(err));
+
+    fetch('http://localhost:3000/cards/2662/transactions')
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
 
     this.recentTransactionsTable.render(this.transactions);
   }
