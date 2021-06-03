@@ -3,6 +3,9 @@ import { RecentTransactionsTable } from './recent-transactions-table.js';
 
 class App {
   constructor() {
+    this.API_URI = 'http://localhost:3000';
+    //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
+    this.merchantList = [];
     this.cardIds = [];
     this.recentTransactions = [];
     this.merchantSelectField = document.getElementById('merchant-select-field');
@@ -15,25 +18,28 @@ class App {
     this.recentTransactionsTable = new RecentTransactionsTable(
       'recent-transactions'
     );
-
-    // TODO: Remove data
-    this.merchantList = [
-      { id: 1, name: 'Solid State' },
-      { id: 2, name: 'Grimm' },
-      { id: 3, name: 'Sotto Le Stelle' }
-    ];
   }
 
   init() {
-    // TODO: Initialize merchant dropdown
-    // TODO: Add 'loading' icon
     $('select.dropdown').dropdown();
-    this.merchantList.forEach(merchant => {
-      const optionEl = document.createElement('option');
-      optionEl.setAttribute('value', merchant.id);
-      optionEl.innerText = merchant.name;
-      this.merchantSelect.appendChild(optionEl);
-    });
+
+    fetch(`${this.API_URI}/merchants`)
+      .then(response => response.json())
+      .then(data => {
+        data.merchants.forEach(merchant => {
+          this.merchantList.push(merchant);
+        });
+      })
+      .then(() => {
+        // TODO: Add 'loading' icon to merchant dropdown
+        this.merchantList.forEach(merchant => {
+          const optionEl = document.createElement('option');
+          optionEl.setAttribute('value', merchant.id);
+          optionEl.innerText = merchant.name;
+          this.merchantSelect.appendChild(optionEl);
+        });
+      })
+      .catch(err => console.log(err));
 
     this.merchantToggleBtn.addEventListener('click', e => {
       e.preventDefault();
@@ -55,7 +61,7 @@ class App {
     });
 
     // Initialize card number submit buttons
-    fetch('http://localhost:3000/cards')
+    fetch(`${this.API_URI}/cards`)
       .then(response => response.json())
       .then(data => {
         data.cards.forEach(card => {
@@ -85,12 +91,16 @@ class App {
 
         this.cardIds.forEach(cardId => {
           // TODO: Make transactions/active (current?)
-          fetch(`http://localhost:3000/cards/${cardId}/transactions`)
+          fetch(`${this.API_URI}/cards/${cardId}/transactions`)
             .then(response => response.json())
             .then(data => {
               data.transactions.forEach(transaction => {
                 this.recentTransactions.push(transaction);
               });
+            })
+            .then(() => {
+              //console.log(this.recentTransactions);
+              this.recentTransactionsTable.render(this.recentTransactions);
             })
             .catch(err => console.log(err));
         });

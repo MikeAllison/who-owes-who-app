@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
-    "start": "http-server ./dist -c-1 -o "
+    "start": "http-server ./dist -c-1 -o"
   },
   "author": "",
   "license": "ISC",

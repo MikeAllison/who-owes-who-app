@@ -8,14 +8,13 @@ export class RecentTransactionsTable extends HTMLElement {
   render(transactions) {
     const tableEl = document.createElement('table');
     tableEl.classList = this.cssClasses;
-
     transactions.forEach(transaction => {
       tableEl.innerHTML += `
         <tr>
-          <td>${transaction.merhant} - ${transaction.date}</td>
+          <td>${transaction.merchant} - ${transaction.date}</td>
           <td>
             <i class="green money bill alternate outline icon"></i>
-            ${transaction.cardholder} - $${transaction.amount.toFixed(2)}
+            ${transaction.cardholder} - $${transaction.amount}
           </td>
         </tr>`;
     });
