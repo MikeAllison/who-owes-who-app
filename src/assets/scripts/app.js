@@ -5,7 +5,11 @@ class App {
   constructor() {
     this.cardIds = [];
     this.recentTransactions = [];
+    this.merchantSelectField = document.getElementById('merchant-select-field');
     this.merchantSelect = document.getElementById('merchant-select');
+    this.newMerchantField = document.getElementById('new-merchant-field');
+    this.newMerchantInput = document.getElementById('new-merchant-input');
+    this.merchantToggleBtn = document.getElementById('merchant-toggle-btn');
     this.amountInput = document.getElementById('amount-input');
     this.submitBtnSection = document.getElementById('submit-btn-section');
     this.recentTransactionsTable = new RecentTransactionsTable(
@@ -29,6 +33,25 @@ class App {
       optionEl.setAttribute('value', merchant.id);
       optionEl.innerText = merchant.name;
       this.merchantSelect.appendChild(optionEl);
+    });
+
+    this.merchantToggleBtn.addEventListener('click', e => {
+      e.preventDefault();
+      this.merchantSelectField.classList.toggle('hidden');
+      this.merchantSelect.value = null;
+      this.merchantSelect.parentElement.childNodes[3].classList.add('default');
+      this.merchantSelect.parentElement.childNodes[4].childNodes.forEach(node =>
+        node.classList.remove('active', 'selected')
+      );
+      this.merchantSelect.parentElement.childNodes[3].innerText =
+        'Select Merchant';
+      this.newMerchantField.classList.toggle('hidden');
+      this.newMerchantInput.value = null;
+      if (this.merchantSelectField.classList.contains('hidden')) {
+        this.merchantToggleBtn.innerText = 'Select Existing Merchant';
+      } else {
+        this.merchantToggleBtn.innerText = 'Add New Merchant';
+      }
     });
 
     // Initialize card number submit buttons

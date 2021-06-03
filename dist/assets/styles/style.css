@@ -2,6 +2,10 @@
   --semantic-green: #21ba45;
 }
 
+.hidden {
+  display: none;
+}
+
 .spaced {
   display: flex;
   justify-content: space-between;

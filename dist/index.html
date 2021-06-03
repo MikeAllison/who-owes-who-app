@@ -23,7 +23,7 @@
       <section class="ui green center aligned raised segment">
         <h2>Transaction Details</h2>
         <form class="ui form">
-          <div class="field">
+          <div class="field" id="merchant-select-field">
             <select
               name="merchant-select"
               id="merchant-select"
@@ -31,6 +31,17 @@
             >
               <option value="">Select Merchant</option>
             </select>
+          </div>
+          <div class="hidden field" id="new-merchant-field">
+            <div class="ui fluid left icon input">
+              <input placeholder="Merchant Name" id="new-merchant-input" />
+              <i class="building outline icon"></i>
+            </div>
+          </div>
+          <div class="field">
+            <button class="ui green button" id="merchant-toggle-btn">
+              Add New Merchant
+            </button>
           </div>
           <div class="field">
             <div class="ui labeled fluid input">
