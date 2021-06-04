@@ -3,10 +3,9 @@ import { RecentTransactionsTable } from './recent-transactions-table.js';
 
 class App {
   constructor() {
-    //this.API_URI = 'http://localhost:3000';
-    this.API_URI = 'https://who-owes-who-api.herokuapp.com';
+    this.API_URI = 'http://localhost:3000';
+    //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
-    this.cardIds = [];
     this.recentTransactions = [];
     this.merchantSelectField = document.getElementById('merchant-select-field');
     this.merchantSelect = document.getElementById('merchant-select');
@@ -64,8 +63,7 @@ class App {
     fetch(`${this.API_URI}/cards`)
       .then(response => response.json())
       .then(data => {
-        data.cards.forEach(card => {
-          this.cardIds.push(card.id);
+        data.forEach(card => {
           const btn = document.createElement('button');
           btn.classList = 'ui green button card-btn';
           btn.dataset.cardId = card.id;
@@ -87,22 +85,6 @@ class App {
             //// Clear inputs
             this.amountInput.value = null;
           });
-        });
-
-        this.cardIds.forEach(cardId => {
-          // TODO: Make transactions/active (current?)
-          fetch(`${this.API_URI}/cards/${cardId}/transactions`)
-            .then(response => response.json())
-            .then(data => {
-              data.transactions.forEach(transaction => {
-                this.recentTransactions.push(transaction);
-              });
-            })
-            .then(() => {
-              //console.log(this.recentTransactions);
-              this.recentTransactionsTable.render(this.recentTransactions);
-            })
-            .catch(err => console.log(err));
         });
       })
       .catch(err => console.log(err));
