@@ -3,8 +3,8 @@ import { RecentTransactionsTable } from './recent-transactions-table.js';
 
 class App {
   constructor() {
-    this.API_URI = 'http://localhost:3000';
-    //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
+    //this.API_URI = 'http://localhost:3000';
+    this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
     this.recentTransactions = [];
     this.merchantSelectField = document.getElementById('merchant-select-field');
@@ -74,7 +74,7 @@ class App {
       this.newMerchantField.classList.toggle('hidden');
       this.newMerchantInput.value = null;
       if (this.merchantSelectField.classList.contains('hidden')) {
-        this.merchantToggleBtn.innerText = 'Select Existing Merchant';
+        this.merchantToggleBtn.innerText = 'Existing Merchant';
       } else {
         this.merchantToggleBtn.innerText = 'Add New Merchant';
       }
