@@ -20,6 +20,26 @@ class App {
   }
 
   init() {
+    fetch(`${this.API_URI}/transactions/active`)
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(card => {
+          card.transactions.forEach(transaction => {
+            transaction.purchaser = card.cardholder;
+            this.recentTransactions.push(transaction);
+          });
+        });
+
+        // Sort by date desc
+        this.recentTransactions.sort((a, b) => {
+          return Date.parse(b.date) - Date.parse(a.date);
+        });
+
+        this.recentTransactionsTable.render(this.recentTransactions);
+      })
+      .catch(err => console.log(err));
+
+    // Initialize merchant list in form
     $('select.dropdown').dropdown();
 
     fetch(`${this.API_URI}/merchants`)

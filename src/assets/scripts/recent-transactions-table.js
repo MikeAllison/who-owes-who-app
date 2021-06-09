@@ -9,12 +9,17 @@ export class RecentTransactionsTable extends HTMLElement {
     const tableEl = document.createElement('table');
     tableEl.classList = this.cssClasses;
     transactions.forEach(transaction => {
+      const date = new Date(transaction.date);
+      const month = (1 + date.getMonth()).toString().padStart(2, '0');
+      const day = date.getDate().toString().padStart(2, '0');
+      const year = date.getFullYear();
+
       tableEl.innerHTML += `
         <tr>
-          <td>${transaction.merchant} - ${transaction.date}</td>
+          <td>${transaction.merchant} - ${month}/${day}/${year}</td>
           <td>
             <i class="green money bill alternate outline icon"></i>
-            ${transaction.cardholder} - $${transaction.amount}
+            ${transaction.purchaser} - $${transaction.amount}
           </td>
         </tr>`;
     });
