@@ -1,6 +1,7 @@
 import { Transaction } from './transaction.js';
 import { ActiveTransactionsTable } from './active-transactions-table.js';
 import { TallySection } from './tally-section.js';
+import { ConfirmModal } from './confirm-modal.js';
 
 class App {
   constructor() {
@@ -20,6 +21,7 @@ class App {
     this.activeTransactionsTable = new ActiveTransactionsTable(
       'active-transactions'
     );
+    this.confirmModal = new ConfirmModal('confirm-modal');
   }
 
   init() {
@@ -54,6 +56,7 @@ class App {
       })
       .catch(err => console.log(err));
 
+    // TODO: Extract and refactor
     // Initialize merchant list in form
     $('select.dropdown').dropdown();
 
@@ -94,6 +97,7 @@ class App {
       }
     });
 
+    // TODO: Extract and refactor
     // Initialize card number submit buttons
     fetch(`${this.API_URI}/cards`)
       .then(response => response.json())
@@ -116,6 +120,8 @@ class App {
               this.amountInput.value
             );
             // Check values
+            this.confirmModal.update(transaction);
+            $('.ui.basic.modal').modal('show');
             // Submit
             console.dir(transaction);
             // Handle submit errors
@@ -127,6 +133,8 @@ class App {
         });
       })
       .catch(err => console.log(err));
+
+    this.confirmModal.init();
   }
 }
 
