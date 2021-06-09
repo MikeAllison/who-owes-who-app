@@ -1,12 +1,12 @@
 import { Transaction } from './transaction.js';
-import { RecentTransactionsTable } from './recent-transactions-table.js';
+import { ActiveTransactionsTable } from './active-transactions-table.js';
 
 class App {
   constructor() {
     //this.API_URI = 'http://localhost:3000';
     this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
-    this.recentTransactions = [];
+    this.activeTransactions = [];
     this.merchantSelectField = document.getElementById('merchant-select-field');
     this.merchantSelect = document.getElementById('merchant-select');
     this.newMerchantField = document.getElementById('new-merchant-field');
@@ -14,7 +14,7 @@ class App {
     this.merchantToggleBtn = document.getElementById('merchant-toggle-btn');
     this.amountInput = document.getElementById('amount-input');
     this.submitBtnSection = document.getElementById('submit-btn-section');
-    this.recentTransactionsTable = new RecentTransactionsTable(
+    this.activeTransactionsTable = new ActiveTransactionsTable(
       'recent-transactions'
     );
   }
@@ -27,16 +27,16 @@ class App {
         data.forEach(card => {
           card.transactions.forEach(transaction => {
             transaction.purchaser = card.cardholder;
-            this.recentTransactions.push(transaction);
+            this.activeTransactions.push(transaction);
           });
         });
 
         // Sort by date desc
-        this.recentTransactions.sort((a, b) => {
+        this.activeTransactions.sort((a, b) => {
           return Date.parse(b.date) - Date.parse(a.date);
         });
 
-        this.recentTransactionsTable.render(this.recentTransactions);
+        this.activeTransactionsTable.render(this.activeTransactions);
       })
       .catch(err => console.log(err));
 
@@ -102,7 +102,7 @@ class App {
             console.dir(transaction);
             // Handle submit errors
             // If successful...
-            //// Update recent transactions
+            //// Update active transactions
             //// Clear inputs
             this.amountInput.value = null;
           });

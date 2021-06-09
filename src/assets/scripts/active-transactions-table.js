@@ -1,4 +1,4 @@
-export class RecentTransactionsTable extends HTMLElement {
+export class ActiveTransactionsTable extends HTMLElement {
   constructor(renderHook) {
     super();
     this.renderHook = document.getElementById(renderHook);
@@ -29,4 +29,4 @@ export class RecentTransactionsTable extends HTMLElement {
   }
 }
 
-customElements.define('recent-transactions-table', RecentTransactionsTable);
+customElements.define('active-transactions-table', ActiveTransactionsTable);
