@@ -20,10 +20,6 @@
   padding-top: 14px;
 }
 
-#tally-section > * {
-  margin: 2px;
-}
-
 @media screen and (max-width: 767px) {
   #recent-transactions-table > table > tbody > tr {
     padding-top: 6px;

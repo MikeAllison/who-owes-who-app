@@ -1,12 +1,14 @@
 import { Transaction } from './transaction.js';
 import { ActiveTransactionsTable } from './active-transactions-table.js';
+import { TallySection } from './tally-section.js';
 
 class App {
   constructor() {
-    this.API_URI = 'http://localhost:3000';
-    //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
+    //this.API_URI = 'http://localhost:3000';
+    this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
     this.activeTransactions = [];
+    this.tallies = new Map();
     this.merchantSelectField = document.getElementById('merchant-select-field');
     this.merchantSelect = document.getElementById('merchant-select');
     this.newMerchantField = document.getElementById('new-merchant-field');
@@ -14,6 +16,7 @@ class App {
     this.merchantToggleBtn = document.getElementById('merchant-toggle-btn');
     this.amountInput = document.getElementById('amount-input');
     this.submitBtnSection = document.getElementById('submit-btn-section');
+    this.tallySection = new TallySection('tally-section');
     this.activeTransactionsTable = new ActiveTransactionsTable(
       'active-transactions'
     );
@@ -28,6 +31,15 @@ class App {
           card.transactions.forEach(transaction => {
             transaction.purchaser = card.cardholder;
             this.activeTransactions.push(transaction);
+
+            // Create a tally of all transactions
+            if (this.tallies.has(transaction.purchaser)) {
+              let purchasesTotal = this.tallies.get(transaction.purchaser);
+              purchasesTotal += transaction.amount;
+              this.tallies.set(transaction.purchaser, purchasesTotal);
+            } else {
+              this.tallies.set(transaction.purchaser, transaction.amount);
+            }
           });
         });
 
@@ -36,7 +48,8 @@ class App {
           return Date.parse(b.date) - Date.parse(a.date);
         });
 
-        console.log(this.activeTransactions);
+        // Render dynamic elements to page
+        this.tallySection.render(this.tallies);
         this.activeTransactionsTable.render(this.activeTransactions);
       })
       .catch(err => console.log(err));
