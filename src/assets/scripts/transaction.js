@@ -1,7 +1,7 @@
 export class Transaction {
-  constructor(cardId, merchant, amount) {
+  constructor(cardId, merchantName, amount) {
     this.cardId = cardId;
-    this.merchant = merchant;
+    this.merchantName = merchantName;
     this.amount = amount;
   }
 }

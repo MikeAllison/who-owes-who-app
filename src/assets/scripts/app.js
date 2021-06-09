@@ -54,7 +54,7 @@ class App {
         // TODO: Add 'loading' icon to merchant dropdown
         this.merchantList.forEach(merchant => {
           const optionEl = document.createElement('option');
-          optionEl.setAttribute('value', merchant.id);
+          optionEl.setAttribute('value', merchant.name);
           optionEl.innerText = merchant.name;
           this.merchantSelect.appendChild(optionEl);
         });
@@ -92,9 +92,13 @@ class App {
           this.submitBtnSection.appendChild(btn);
 
           btn.addEventListener('click', e => {
+            const merchantName = this.newMerchantInput.value
+              ? this.newMerchantInput.value
+              : this.merchantSelect.value;
+
             const transaction = new Transaction(
               e.currentTarget.dataset.cardId,
-              this.merchantSelect.value,
+              merchantName,
               this.amountInput.value
             );
             // Check values
