@@ -68,13 +68,15 @@ class App {
         });
       })
       .then(() => {
-        // TODO: Add 'loading' icon to merchant dropdown
         this.merchantList.forEach(merchant => {
           const optionEl = document.createElement('option');
           optionEl.setAttribute('value', merchant.name);
           optionEl.innerText = merchant.name;
           this.merchantSelect.appendChild(optionEl);
         });
+      })
+      .then(() => {
+        this.merchantSelect.parentElement.classList.remove('loading');
       })
       .catch(err => console.log(err));
 
