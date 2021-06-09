@@ -16,7 +16,7 @@ export class ActiveTransactionsTable extends HTMLElement {
 
       tableEl.innerHTML += `
         <tr>
-          <td>${transaction.merchant} - ${month}/${day}/${year}</td>
+          <td>${transaction.merchantName} - ${month}/${day}/${year}</td>
           <td>
             <i class="green money bill alternate outline icon"></i>
             ${transaction.purchaser} - $${transaction.amount}

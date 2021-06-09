@@ -3,8 +3,8 @@ import { ActiveTransactionsTable } from './active-transactions-table.js';
 
 class App {
   constructor() {
-    //this.API_URI = 'http://localhost:3000';
-    this.API_URI = 'https://who-owes-who-api.herokuapp.com';
+    this.API_URI = 'http://localhost:3000';
+    //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
     this.activeTransactions = [];
     this.merchantSelectField = document.getElementById('merchant-select-field');
@@ -36,6 +36,7 @@ class App {
           return Date.parse(b.date) - Date.parse(a.date);
         });
 
+        console.log(this.activeTransactions);
         this.activeTransactionsTable.render(this.activeTransactions);
       })
       .catch(err => console.log(err));
