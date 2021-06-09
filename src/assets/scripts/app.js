@@ -76,7 +76,7 @@ class App {
       if (this.merchantSelectField.classList.contains('hidden')) {
         this.merchantToggleBtn.innerText = 'Existing Merchant';
       } else {
-        this.merchantToggleBtn.innerText = 'Add New Merchant';
+        this.merchantToggleBtn.innerText = 'New Merchant';
       }
     });
 
