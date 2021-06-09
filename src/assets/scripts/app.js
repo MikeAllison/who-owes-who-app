@@ -3,8 +3,8 @@ import { RecentTransactionsTable } from './recent-transactions-table.js';
 
 class App {
   constructor() {
-    //this.API_URI = 'http://localhost:3000';
-    this.API_URI = 'https://who-owes-who-api.herokuapp.com';
+    this.API_URI = 'http://localhost:3000';
+    //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
     this.recentTransactions = [];
     this.merchantSelectField = document.getElementById('merchant-select-field');
@@ -20,6 +20,7 @@ class App {
   }
 
   init() {
+    // Get all non-archived transactions
     fetch(`${this.API_URI}/transactions/active`)
       .then(response => response.json())
       .then(data => {
@@ -45,7 +46,7 @@ class App {
     fetch(`${this.API_URI}/merchants`)
       .then(response => response.json())
       .then(data => {
-        data.merchants.forEach(merchant => {
+        data.forEach(merchant => {
           this.merchantList.push(merchant);
         });
       })
