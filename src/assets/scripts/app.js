@@ -15,7 +15,7 @@ class App {
     this.amountInput = document.getElementById('amount-input');
     this.submitBtnSection = document.getElementById('submit-btn-section');
     this.activeTransactionsTable = new ActiveTransactionsTable(
-      'recent-transactions'
+      'active-transactions'
     );
   }
 
