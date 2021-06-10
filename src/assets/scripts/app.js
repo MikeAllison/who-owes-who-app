@@ -161,7 +161,10 @@ class App {
                       body: JSON.stringify(transaction)
                     })
                       .then(response => response.json())
-                      .then(location.reload())
+                      .then(data => {
+                        console.log(data);
+                        //location.reload()
+                      })
                       .catch(err => {
                         console.log(err);
                         this.basicModal.setError(err.message);
