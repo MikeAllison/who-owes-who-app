@@ -17,7 +17,7 @@ export class BasicModal extends HTMLElement {
 
   setError(message) {
     this.querySelector('.header').innerHTML = `
-      <i class="red thumbs down icon"></i>
+      <i class="red exclamation triangle icon"></i>
       There Was A Problem!
     `;
     this.querySelector('.content').innerHTML = `
@@ -33,7 +33,7 @@ export class BasicModal extends HTMLElement {
 
   setConfirm(transaction) {
     this.querySelector('.header').innerHTML = `
-      <i class="green thumbs up icon"></i>
+      <i class="green question circle outline icon"></i>
       Submit the Following Transaction?
     `;
     this.querySelector('.content').innerHTML = `

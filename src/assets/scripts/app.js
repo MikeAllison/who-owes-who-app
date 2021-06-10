@@ -5,8 +5,8 @@ import { BasicModal } from './basic-modal.js';
 
 class App {
   constructor() {
-    //this.API_URI = 'http://localhost:3000';
-    this.API_URI = 'https://who-owes-who-api.herokuapp.com';
+    this.API_URI = 'http://localhost:3000';
+    //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
     this.activeTransactions = [];
     this.tallies = new Map();
@@ -27,7 +27,9 @@ class App {
   init() {
     this.basicModal.init();
 
-    // Get all non-archived transactions
+    // *******************************
+    // FETCH NON-ARCHIVED TRANSACTIONS
+    // *******************************
     fetch(`${this.API_URI}/transactions/active`)
       .then(response => response.json())
       .then(data => {
@@ -36,7 +38,7 @@ class App {
             transaction.purchaser = card.cardholder;
             this.activeTransactions.push(transaction);
 
-            // Create a tally of all transactions
+            // Create a tally of all non-archived transactions
             if (this.tallies.has(transaction.purchaser)) {
               let purchasesTotal = this.tallies.get(transaction.purchaser);
               purchasesTotal += transaction.amount;
@@ -47,7 +49,7 @@ class App {
           });
         });
 
-        // Sort by date desc
+        // Sort transactions by date desc
         this.activeTransactions.sort((a, b) => {
           return Date.parse(b.date) - Date.parse(a.date);
         });
@@ -59,7 +61,9 @@ class App {
       .catch(err => console.log(err));
 
     // TODO: Extract and refactor
-    // Initialize merchant list in form
+    // ************************
+    // INITIALIZE MERCHANT LIST
+    // ************************
     $('select.dropdown').dropdown();
 
     fetch(`${this.API_URI}/merchants`)
@@ -102,7 +106,9 @@ class App {
     });
 
     // TODO: Extract and refactor
-    // Initialize card number submit buttons
+    // *************************************
+    // INITIALIZE CARD NUMBER SUBMIT BUTTONS
+    // *************************************
     fetch(`${this.API_URI}/cards`)
       .then(response => response.json())
       .then(data => {
@@ -118,7 +124,7 @@ class App {
               ? this.newMerchantInput.value
               : this.merchantSelect.value;
 
-            // Validate inputs
+            // Validate submitted data
             try {
               if (!merchantName) {
                 throw new Error('Missing Merchant');
@@ -150,25 +156,43 @@ class App {
                   detachable: false,
                   duration: 200,
                   onApprove: () => {
-                    // Submit
-                    console.dir(transaction);
-                    // Handle submit errors
-                    // If successful...
-                    //// Update active transactions
-                    //// Clear inputs
+                    fetch(`${this.API_URI}/transactions`, {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify(transaction)
+                    })
+                      .then(response => response.json())
+                      .then(data => {
+                        console.log('Success:', data);
+                        // Update active transactions
+                        // Clear inputs
+                      })
+                      .catch(err => {
+                        console.error('Error:', err);
+                        this.basicModal.setError(err.message);
+                        $('.ui.basic.modal')
+                          .modal({
+                            closable: false,
+                            detachable: false,
+                            duration: 200
+                          })
+                          .modal('show'); // POST /transactions error modal
+                      });
                   }
                 })
-                .modal('show');
+                .modal('show'); // Transaction input confirmation modal
             } catch (err) {
               this.basicModal.setError(err.message);
               $('.ui.basic.modal')
                 .modal({ closable: false, detachable: false, duration: 200 })
-                .modal('show');
+                .modal('show'); // Input validation error modal
             }
           });
         });
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err)); // GET /cards error handling
   }
 }
 
