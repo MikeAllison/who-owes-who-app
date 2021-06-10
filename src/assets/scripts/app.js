@@ -1,7 +1,7 @@
 import { Transaction } from './transaction.js';
 import { ActiveTransactionsTable } from './active-transactions-table.js';
 import { TallySection } from './tally-section.js';
-import { ConfirmModal } from './confirm-modal.js';
+import { BasicModal } from './basic-modal.js';
 
 class App {
   constructor() {
@@ -21,10 +21,12 @@ class App {
     this.activeTransactionsTable = new ActiveTransactionsTable(
       'active-transactions'
     );
-    this.confirmModal = new ConfirmModal('confirm-modal');
+    this.basicModal = new BasicModal('basic-modal');
   }
 
   init() {
+    this.basicModal.init();
+
     // Get all non-archived transactions
     fetch(`${this.API_URI}/transactions/active`)
       .then(response => response.json())
@@ -116,27 +118,47 @@ class App {
               ? this.newMerchantInput.value
               : this.merchantSelect.value;
 
-            const transaction = new Transaction(
-              e.currentTarget.dataset.cardId,
-              merchantName,
-              this.amountInput.value
-            );
-            // Check values
-            this.confirmModal.update(transaction);
-            $('.ui.basic.modal').modal('show');
-            // Submit
-            console.dir(transaction);
-            // Handle submit errors
-            // If successful...
-            //// Update active transactions
-            //// Clear inputs
-            this.amountInput.value = null;
+            // Validate inputs
+            try {
+              if (!merchantName) {
+                throw new Error('Missing Merchant');
+              }
+
+              if (!this.amountInput.value) {
+                throw new Error('Missing Amount');
+              }
+
+              if (!e.currentTarget.dataset.cardId) {
+                throw new Error('Missing Card ID');
+              }
+
+              const transaction = new Transaction(
+                e.currentTarget.dataset.cardId,
+                merchantName,
+                this.amountInput.value
+              );
+
+              this.basicModal.setConfirm(transaction);
+              $('.ui.basic.modal')
+                .modal('setting', 'closable', false)
+                .modal('show');
+              // Submit
+              console.dir(transaction);
+              // Handle submit errors
+              // If successful...
+              //// Update active transactions
+              //// Clear inputs
+              this.amountInput.value = null;
+            } catch (err) {
+              this.basicModal.setError(err.message);
+              $('.ui.basic.modal')
+                .modal('setting', 'closable', false)
+                .modal('show');
+            }
           });
         });
       })
       .catch(err => console.log(err));
-
-    this.confirmModal.init();
   }
 }
 
