@@ -6,6 +6,14 @@ export class ActiveTransactionsTable extends HTMLElement {
   }
 
   render(transactions) {
+    if (transactions.length === 0) {
+      this.innerHTML = `
+        <h3>No Transactions</h3>
+      `;
+      this.renderHook.appendChild(this);
+      return;
+    }
+
     // Sort transactions by date desc
     transactions.sort((a, b) => {
       return Date.parse(b.enteredDate) - Date.parse(a.enteredDate);

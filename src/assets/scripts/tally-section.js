@@ -17,7 +17,7 @@ export class TallySection extends HTMLElement {
     if (higherPayer[1] - lowerPayer[1] === 0) {
       this.innerHTML = `
         <h2 style="margin:0">
-          Everyone Is Even!
+          We're Even!
         </h2>
         <h3 style="margin-top:4px">
           <i class="green thumbs up outline icon"></i>
