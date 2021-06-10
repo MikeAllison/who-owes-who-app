@@ -8,7 +8,7 @@ export class ActiveTransactionsTable extends HTMLElement {
   render(transactions) {
     if (transactions.length === 0) {
       this.innerHTML = `
-        <h3>No Transactions</h3>
+        <p>No Transactions</p>
       `;
       this.renderHook.appendChild(this);
       return;
