@@ -163,7 +163,7 @@ class App {
                       .then(response => response.json())
                       .then(location.reload())
                       .catch(err => {
-                        console.error('Error:', err);
+                        console.log(err);
                         this.basicModal.setError(err.message);
                         $('.ui.basic.modal')
                           .modal({
