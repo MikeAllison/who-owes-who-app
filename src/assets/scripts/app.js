@@ -161,9 +161,8 @@ class App {
                       body: JSON.stringify(transaction)
                     })
                       .then(response => response.json())
-                      .then(data => {
-                        console.log(data);
-                        //location.reload()
+                      .then(() => {
+                        location.reload();
                       })
                       .catch(err => {
                         console.log(err);
