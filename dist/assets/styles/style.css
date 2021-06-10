@@ -2,6 +2,10 @@
   --semantic-green: #21ba45;
 }
 
+.ui.text.container {
+  max-width: 400px !important;
+}
+
 .hidden {
   display: none;
 }
