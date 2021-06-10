@@ -34,7 +34,7 @@ export class ActiveTransactionsTable extends HTMLElement {
           <td>${transaction.merchantName} - ${month}/${day}/${year}</td>
           <td>
             <i class="green money bill alternate outline icon"></i>
-            ${transaction.purchaser} - $${transaction.amount}
+            ${transaction.purchaser} - $${transaction.amount.toFixed(2)}
           </td>
         </tr>`;
     });

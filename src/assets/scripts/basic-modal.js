@@ -17,14 +17,14 @@ export class BasicModal extends HTMLElement {
 
   setError(message) {
     this.querySelector('.header').innerHTML = `
-      <i class="red exclamation triangle icon"></i>
+      <i class="orange exclamation triangle icon"></i>
       There Was A Problem!
     `;
     this.querySelector('.content').innerHTML = `
       <p>${message}</p>
     `;
     this.querySelector('.actions').innerHTML = `
-      <div class="ui red ok inverted button">
+      <div class="ui orange ok inverted button">
         <i class="checkmark icon"></i>
         Go Back
       </div>
