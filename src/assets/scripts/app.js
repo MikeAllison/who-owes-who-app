@@ -51,7 +51,7 @@ class App {
 
         // Sort transactions by date desc
         this.activeTransactions.sort((a, b) => {
-          return Date.parse(b.date) - Date.parse(a.date);
+          return Date.parse(b.enteredDate) - Date.parse(a.enteredDate);
         });
 
         // Render dynamic elements to page

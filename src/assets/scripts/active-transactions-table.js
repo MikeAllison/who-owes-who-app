@@ -11,10 +11,10 @@ export class ActiveTransactionsTable extends HTMLElement {
     const tbodyEl = document.createElement('tbody');
 
     transactions.forEach(transaction => {
-      const date = new Date(transaction.date);
-      const month = (1 + date.getMonth()).toString().padStart(2, '0');
-      const day = date.getDate().toString().padStart(2, '0');
-      const year = date.getFullYear();
+      const enteredDate = new Date(transaction.enteredDate);
+      const month = (1 + enteredDate.getMonth()).toString().padStart(2, '0');
+      const day = enteredDate.getDate().toString().padStart(2, '0');
+      const year = enteredDate.getFullYear();
 
       tbodyEl.innerHTML += `
         <tr>
