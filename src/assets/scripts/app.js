@@ -128,6 +128,11 @@ class App {
                 throw new Error('Missing Amount');
               }
 
+              const amount = +this.amountInput.value;
+              if (isNaN(amount)) {
+                throw new Error('Amount Is Not A Number');
+              }
+
               if (!e.currentTarget.dataset.cardId) {
                 throw new Error('Missing Card ID');
               }
@@ -135,24 +140,29 @@ class App {
               const transaction = new Transaction(
                 e.currentTarget.dataset.cardId,
                 merchantName,
-                this.amountInput.value
+                amount.toFixed(2)
               );
 
               this.basicModal.setConfirm(transaction);
               $('.ui.basic.modal')
-                .modal('setting', 'closable', false)
+                .modal({
+                  closable: false,
+                  detachable: false,
+                  duration: 200,
+                  onApprove: () => {
+                    // Submit
+                    console.dir(transaction);
+                    // Handle submit errors
+                    // If successful...
+                    //// Update active transactions
+                    //// Clear inputs
+                  }
+                })
                 .modal('show');
-              // Submit
-              console.dir(transaction);
-              // Handle submit errors
-              // If successful...
-              //// Update active transactions
-              //// Clear inputs
-              this.amountInput.value = null;
             } catch (err) {
               this.basicModal.setError(err.message);
               $('.ui.basic.modal')
-                .modal('setting', 'closable', false)
+                .modal({ closable: false, detachable: false, duration: 200 })
                 .modal('show');
             }
           });
