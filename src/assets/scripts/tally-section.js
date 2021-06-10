@@ -34,7 +34,7 @@ export class TallySection extends HTMLElement {
       </h2>
       <h3 style="margin-top:4px">
         <i class="green money bill alternate icon"></i>
-        $${higherPayer[1] - lowerPayer[1]}
+        $${(higherPayer[1] - lowerPayer[1]).toFixed(2)}
       </h3>
     `;
 
