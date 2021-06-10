@@ -5,8 +5,8 @@ import { BasicModal } from './basic-modal.js';
 
 class App {
   constructor() {
-    //this.API_URI = 'http://localhost:3000';
-    this.API_URI = 'https://who-owes-who-api.herokuapp.com';
+    this.API_URI = 'http://localhost:3000';
+    //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
     this.activeTransactions = [];
     this.tallies = new Map();
@@ -34,18 +34,18 @@ class App {
       .then(response => response.json())
       .then(data => {
         data.forEach(card => {
+          // Add the cardholder to the tallies map
+          if (!this.tallies.has(card.cardholder)) {
+            this.tallies.set(card.cardholder, 0);
+          }
+
           card.transactions.forEach(transaction => {
-            transaction.purchaser = card.cardholder;
             this.activeTransactions.push(transaction);
 
-            // Create a tally of all non-archived transactions
-            if (this.tallies.has(transaction.purchaser)) {
-              let purchasesTotal = this.tallies.get(transaction.purchaser);
-              purchasesTotal += transaction.amount;
-              this.tallies.set(transaction.purchaser, purchasesTotal);
-            } else {
-              this.tallies.set(transaction.purchaser, transaction.amount);
-            }
+            // Add the transaction to the tallies map
+            let purchasesTotal = this.tallies.get(card.cardholder);
+            purchasesTotal += transaction.amount;
+            this.tallies.set(card.cardholder, purchasesTotal);
           });
         });
 

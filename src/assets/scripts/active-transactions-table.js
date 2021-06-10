@@ -6,6 +6,7 @@ export class ActiveTransactionsTable extends HTMLElement {
   }
 
   render(transactions) {
+    console.log(transactions);
     const tableEl = document.createElement('table');
     tableEl.classList = this.cssClasses;
     const tbodyEl = document.createElement('tbody');

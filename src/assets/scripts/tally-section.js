@@ -5,6 +5,16 @@ export class TallySection extends HTMLElement {
   }
 
   render(tallies) {
+    if (tallies.size === 0) {
+      this.innerHTML = `
+        <h2 style="margin:0">
+          Everyone Is Even!
+        </h2>`;
+
+      this.renderHook.appendChild(this);
+      return;
+    }
+
     const higherPayer = [...tallies.entries()].reduce((a, e) =>
       e[1] > a[1] ? e : a
     );
@@ -13,7 +23,7 @@ export class TallySection extends HTMLElement {
       e[1] < a[1] ? e : a
     );
 
-    this.innerHTML += `
+    this.innerHTML = `
       <h2 style="margin:0">
         ${lowerPayer[0]} 
         <i class="right green triangle icon"></i>
