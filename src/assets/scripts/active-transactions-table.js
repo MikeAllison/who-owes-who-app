@@ -8,13 +8,15 @@ export class ActiveTransactionsTable extends HTMLElement {
   render(transactions) {
     const tableEl = document.createElement('table');
     tableEl.classList = this.cssClasses;
+    const tbodyEl = document.createElement('tbody');
+
     transactions.forEach(transaction => {
       const date = new Date(transaction.date);
       const month = (1 + date.getMonth()).toString().padStart(2, '0');
       const day = date.getDate().toString().padStart(2, '0');
       const year = date.getFullYear();
 
-      tableEl.innerHTML += `
+      tbodyEl.innerHTML += `
         <tr>
           <td>${transaction.merchantName} - ${month}/${day}/${year}</td>
           <td>
@@ -24,6 +26,7 @@ export class ActiveTransactionsTable extends HTMLElement {
         </tr>`;
     });
 
+    tableEl.append(tbodyEl);
     this.appendChild(tableEl);
     this.renderHook.appendChild(this);
   }

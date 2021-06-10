@@ -164,11 +164,7 @@ class App {
                       body: JSON.stringify(transaction)
                     })
                       .then(response => response.json())
-                      .then(data => {
-                        console.log('Success:', data);
-                        // Update active transactions
-                        // Clear inputs
-                      })
+                      .then(location.reload())
                       .catch(err => {
                         console.error('Error:', err);
                         this.basicModal.setError(err.message);
