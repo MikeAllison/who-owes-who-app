@@ -6,7 +6,11 @@ export class ActiveTransactionsTable extends HTMLElement {
   }
 
   render(transactions) {
-    console.log(transactions);
+    // Sort transactions by date desc
+    transactions.sort((a, b) => {
+      return Date.parse(b.enteredDate) - Date.parse(a.enteredDate);
+    });
+
     const tableEl = document.createElement('table');
     tableEl.classList = this.cssClasses;
     const tbodyEl = document.createElement('tbody');

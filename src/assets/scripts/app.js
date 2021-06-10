@@ -40,6 +40,8 @@ class App {
           }
 
           card.transactions.forEach(transaction => {
+            // Add .purchaser property onto transaction object
+            transaction.purchaser = card.cardholder;
             this.activeTransactions.push(transaction);
 
             // Add the transaction to the tallies map
@@ -47,11 +49,6 @@ class App {
             purchasesTotal += transaction.amount;
             this.tallies.set(card.cardholder, purchasesTotal);
           });
-        });
-
-        // Sort transactions by date desc
-        this.activeTransactions.sort((a, b) => {
-          return Date.parse(b.enteredDate) - Date.parse(a.enteredDate);
         });
 
         // Render dynamic elements to page
