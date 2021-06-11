@@ -38,7 +38,7 @@ export class BasicModal extends HTMLElement {
     `;
     this.querySelector('.content').innerHTML = `
       <p><strong>Merchant: </strong>${transaction.merchantName}</p>
-      <p><strong>Amount: </strong>$${transaction.amount}</p>
+      <p><strong>Amount: </strong>$${transaction.amount.toFixed(2)}</p>
       <p><strong>Card: </strong>${transaction.cardId}</p>
     `;
     this.querySelector('.actions').innerHTML = `
