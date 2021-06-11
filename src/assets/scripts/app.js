@@ -1,5 +1,5 @@
 import { Transaction } from './transaction.js';
-import { ActiveTransactionsTable } from './active-transactions-table.js';
+import { RecentTransactionsTable } from './recent-transactions-table.js';
 import { TallySection } from './tally-section.js';
 import { BasicModal } from './basic-modal.js';
 
@@ -8,7 +8,7 @@ class App {
     //this.API_URI = 'http://localhost:3000';
     this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
-    this.activeTransactions = [];
+    this.recentTransactions = [];
     this.tallies = new Map();
     this.merchantSelectField = document.getElementById('merchant-select-field');
     this.merchantSelect = document.getElementById('merchant-select');
@@ -18,8 +18,8 @@ class App {
     this.amountInput = document.getElementById('amount-input');
     this.submitBtnSection = document.getElementById('submit-btn-section');
     this.tallySection = new TallySection('tally-section');
-    this.activeTransactionsTable = new ActiveTransactionsTable(
-      'active-transactions'
+    this.recentTransactionsTable = new RecentTransactionsTable(
+      'recent-transactions'
     );
     this.basicModal = new BasicModal('basic-modal');
   }
@@ -27,10 +27,10 @@ class App {
   init() {
     this.basicModal.init();
 
-    // *********************************
-    //  FETCH NON-ARCHIVED TRANSACTIONS
-    // *********************************
-    fetch(`${this.API_URI}/transactions/active`)
+    // ********************
+    //  FETCH TRANSACTIONS
+    // ********************
+    fetch(`${this.API_URI}/transactions`)
       .then(response => response.json())
       .then(data => {
         data.forEach(card => {
@@ -42,7 +42,7 @@ class App {
           card.transactions.forEach(transaction => {
             // Add .purchaser property onto transaction object
             transaction.purchaser = card.cardholder;
-            this.activeTransactions.push(transaction);
+            this.recentTransactions.push(transaction);
 
             // Add the transaction to the tallies map
             let purchasesTotal = this.tallies.get(card.cardholder);
@@ -53,7 +53,7 @@ class App {
 
         // Render dynamic elements to page
         this.tallySection.render(this.tallies);
-        this.activeTransactionsTable.render(this.activeTransactions);
+        this.recentTransactionsTable.render(this.recentTransactions);
       })
       .catch(err => console.log(err));
 
