@@ -40,7 +40,7 @@ export class RecentTransactionsTable extends HTMLElement {
             ${transaction.purchaser} - $${transaction.amount.toFixed(2)}
           </td>
           <td>
-            Status: ${transaction.archived ? 'Achived' : 'Active'}
+            Status: ${transaction.archived ? 'Archived' : 'Active'}
           </td>
         </tr>`;
     });
