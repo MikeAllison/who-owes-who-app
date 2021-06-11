@@ -5,8 +5,8 @@ import { BasicModal } from './basic-modal.js';
 
 class App {
   constructor() {
-    //this.API_URI = 'http://localhost:3000';
-    this.API_URI = 'https://who-owes-who-api.herokuapp.com';
+    this.API_URI = 'http://localhost:3000';
+    //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
     this.activeTransactions = [];
     this.tallies = new Map();
@@ -27,9 +27,9 @@ class App {
   init() {
     this.basicModal.init();
 
-    // *******************************
-    // FETCH NON-ARCHIVED TRANSACTIONS
-    // *******************************
+    // *********************************
+    //  FETCH NON-ARCHIVED TRANSACTIONS
+    // *********************************
     fetch(`${this.API_URI}/transactions/active`)
       .then(response => response.json())
       .then(data => {
@@ -58,9 +58,9 @@ class App {
       .catch(err => console.log(err));
 
     // TODO: Extract and refactor
-    // ************************
-    // INITIALIZE MERCHANT LIST
-    // ************************
+    // **************************
+    //  INITIALIZE MERCHANT LIST
+    // **************************
     $('select.dropdown').dropdown();
 
     fetch(`${this.API_URI}/merchants`)
@@ -103,9 +103,9 @@ class App {
     });
 
     // TODO: Extract and refactor
-    // *************************************
-    // INITIALIZE CARD NUMBER SUBMIT BUTTONS
-    // *************************************
+    // ***************************************
+    //  INITIALIZE CARD NUMBER SUBMIT BUTTONS
+    // ***************************************
     fetch(`${this.API_URI}/cards`)
       .then(response => response.json())
       .then(data => {
@@ -130,8 +130,7 @@ class App {
               if (!this.amountInput.value) {
                 throw new Error('Missing Amount');
               }
-
-              const amount = +this.amountInput.value;
+              const amount = +(+this.amountInput.value).toFixed(2);
               if (isNaN(amount)) {
                 throw new Error('Amount Is Not A Number');
               }
@@ -143,7 +142,7 @@ class App {
               const transaction = new Transaction(
                 e.currentTarget.dataset.cardId,
                 merchantName,
-                amount.toFixed(2)
+                amount
               );
 
               this.basicModal.setConfirm(transaction);
@@ -160,8 +159,7 @@ class App {
                       },
                       body: JSON.stringify(transaction)
                     })
-                      .then(response => response.json())
-                      .then(() => {
+                      .then(response => {
                         location.reload();
                       })
                       .catch(err => {
