@@ -24,19 +24,19 @@
   padding-top: 14px;
 }
 
-@media screen and (min-width: 768px) {
+/* @media screen and (min-width: 768px) {
   .ui.text.container {
-    max-width: 400px !important;
+    max-width: 500px !important;
   }
-}
+} */
 
 @media screen and (max-width: 767px) {
-  active-transactions-table > table > tbody > tr {
-    padding-top: 6px !important;
-    padding-bottom: 6px !important;
+  recent-transactions-table > table > tbody > tr {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
   }
 
-  active-transactions-table > table > tbody > tr > td {
+  recent-transactions-table > table > tbody > tr > td {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
   }

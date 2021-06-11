@@ -2,7 +2,8 @@ export class RecentTransactionsTable extends HTMLElement {
   constructor(renderHook) {
     super();
     this.renderHook = document.getElementById(renderHook);
-    this.cssClasses = 'ui striped two column green very compact small table';
+    this.cssClasses =
+      'ui striped three column green very compact small single line table';
   }
 
   render(transactions) {
@@ -31,10 +32,15 @@ export class RecentTransactionsTable extends HTMLElement {
 
       tbodyEl.innerHTML += `
         <tr>
-          <td>${transaction.merchantName} - ${month}/${day}/${year}</td>
+          <td>
+            ${transaction.merchantName} - ${month}/${day}/${year}
+          </td>
           <td>
             <i class="green money bill alternate outline icon"></i>
             ${transaction.purchaser} - $${transaction.amount.toFixed(2)}
+          </td>
+          <td>
+            Status: ${transaction.archived ? 'Achived' : 'Active'}
           </td>
         </tr>`;
     });
