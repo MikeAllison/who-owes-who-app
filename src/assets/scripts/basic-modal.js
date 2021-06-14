@@ -31,12 +31,13 @@ export class BasicModal extends HTMLElement {
     `;
   }
 
-  setConfirm(transaction) {
+  setConfirm(cardholder, transaction) {
     this.querySelector('.header').innerHTML = `
       <i class="green question circle outline icon"></i>
       Submit the Following Transaction?
     `;
     this.querySelector('.content').innerHTML = `
+      <h3 style="color: var(--semantic-green)">Payee: ${cardholder}</h3>
       <p><strong>Merchant: </strong>${transaction.merchantName}</p>
       <p><strong>Amount: </strong>$${transaction.amount.toFixed(2)}</p>
       <p><strong>Card: </strong>${transaction.cardId}</p>

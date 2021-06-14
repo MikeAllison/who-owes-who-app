@@ -125,6 +125,7 @@ class App {
           const btn = document.createElement('button');
           btn.classList = 'ui green button card-btn';
           btn.dataset.cardId = card.id;
+          btn.dataset.cardholder = card.cardholder;
           btn.innerText = card.id;
           this.submitBtnSection.appendChild(btn);
 
@@ -151,13 +152,15 @@ class App {
                 throw new Error('Missing Card ID');
               }
 
+              const cardholder = e.target.dataset.cardholder;
+
               const transaction = new Transaction(
                 e.currentTarget.dataset.cardId,
                 merchantName,
                 amount
               );
 
-              this.basicModal.setConfirm(transaction);
+              this.basicModal.setConfirm(cardholder, transaction);
               $('.ui.basic.modal')
                 .modal({
                   closable: false,
