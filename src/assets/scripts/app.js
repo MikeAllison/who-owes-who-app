@@ -9,7 +9,7 @@ class App {
     this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
     this.recentTransactions = [];
-    this.tallies = new Map();
+    this.tally = new Map();
     this.merchantSelectField = document.getElementById('merchant-select-field');
     this.merchantSelect = document.getElementById('merchant-select');
     this.newMerchantField = document.getElementById('new-merchant-field');
@@ -34,9 +34,9 @@ class App {
       .then(response => response.json())
       .then(data => {
         data.forEach(card => {
-          // Add the cardholder to the tallies map
-          if (!this.tallies.has(card.cardholder)) {
-            this.tallies.set(card.cardholder, 0);
+          // Add the cardholder to the tally map
+          if (!this.tally.has(card.cardholder)) {
+            this.tally.set(card.cardholder, 0);
           }
 
           card.transactions.forEach(transaction => {
@@ -44,15 +44,15 @@ class App {
             transaction.purchaser = card.cardholder;
             this.recentTransactions.push(transaction);
 
-            // Add the transaction to the tallies map
-            let purchasesTotal = this.tallies.get(card.cardholder);
+            // Add the transaction to the tally map
+            let purchasesTotal = this.tally.get(card.cardholder);
             purchasesTotal += transaction.amount;
-            this.tallies.set(card.cardholder, purchasesTotal);
+            this.tally.set(card.cardholder, purchasesTotal);
           });
         });
 
         // Render dynamic elements to page
-        this.tallySection.render(this.tallies);
+        this.tallySection.render(this.tally);
         this.recentTransactionsTable.render(this.recentTransactions);
       })
       .catch(err => console.log(err));
