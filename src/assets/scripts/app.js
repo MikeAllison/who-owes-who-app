@@ -36,7 +36,7 @@ class App {
         data.forEach(card => {
           // Add the cardholder to the tally map
           if (!this.tally.has(card.cardholder)) {
-            this.tally.set(card.cardholder, { purchasesTotal: 0 });
+            this.tally.set(card.cardholder, { transactionTotal: 0 });
           }
 
           card.transactions.forEach(transaction => {
@@ -45,7 +45,7 @@ class App {
             this.recentTransactions.push(transaction);
 
             // Add the transaction to the tally map
-            this.tally.get(card.cardholder).purchasesTotal +=
+            this.tally.get(card.cardholder).transactionTotal +=
               transaction.amount;
           });
         });
@@ -138,11 +138,14 @@ class App {
               if (!merchantName) {
                 throw new Error('Missing Merchant');
               }
-
               if (!this.amountInput.value) {
                 throw new Error('Missing Amount');
               }
+
               const amount = +(+this.amountInput.value).toFixed(2);
+              if (!amount > 0) {
+                throw new Error('Amount Must Be More Than $0');
+              }
               if (isNaN(amount)) {
                 throw new Error('Amount Is Not A Number');
               }

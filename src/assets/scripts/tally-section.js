@@ -6,15 +6,19 @@ export class TallySection extends HTMLElement {
 
   render(tallies) {
     const higherPayer = [...tallies.entries()].reduce((a, e) =>
-      e[1].purchasesTotal > a[1].purchasesTotal ? e : a
+      e[1].transactionTotal > a[1].transactionTotal ? e : a
     );
 
     const lowerPayer = [...tallies.entries()].reduce((a, e) =>
-      e[1].purchasesTotal < a[1].purchasesTotal ? e : a
+      e[1].transactionTotal < a[1].transactionTotal ? e : a
     );
 
     // Check for even
-    if (higherPayer[1] - lowerPayer[1] === 0) {
+    const allTransactionTotals = [];
+    tallies.forEach(cardholder => {
+      allTransactionTotals.push(cardholder.transactionTotal);
+    });
+    if (allTransactionTotals.every((val, i, arr) => val === arr[0])) {
       this.innerHTML = `
         <h2 style="margin:0">
           We're Even!
@@ -35,7 +39,7 @@ export class TallySection extends HTMLElement {
       <h3 style="margin-top:4px">
         <i class="green money bill alternate icon"></i>
         $${(
-          higherPayer[1].purchasesTotal - lowerPayer[1].purchasesTotal
+          higherPayer[1].transactionTotal - lowerPayer[1].transactionTotal
         ).toFixed(2)}
       </h3>
     `;
