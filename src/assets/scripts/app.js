@@ -5,8 +5,8 @@ import { TransactionForm } from './transaction-form.js';
 
 class App {
   constructor() {
-    this.API_URI = 'http://localhost:3000';
-    //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
+    //this.API_URI = 'http://localhost:3000';
+    this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
     this.cardList = [];
     this.recentTransactions = [];
@@ -52,26 +52,37 @@ class App {
       })
       .catch(err => console.log(err));
 
-    fetch(`${this.API_URI}/merchants`)
-      .then(response => response.json())
-      .then(data => {
-        data.forEach(merchant => {
-          this.merchantList.push(merchant);
+    const merchantsPromise = new Promise((resolve, reject) => {
+      fetch(`${this.API_URI}/merchants`)
+        .then(response => response.json())
+        .then(data => {
+          data.forEach(merchant => {
+            this.merchantList.push(merchant);
+          });
+          resolve();
+        })
+        .catch(err => {
+          reject();
+          console.log(err);
         });
-      })
-      .catch(err => console.log(err));
+    });
 
-    fetch(`${this.API_URI}/cards`)
-      .then(response => response.json())
-      .then(data => {
-        new Promise((resolve, reject) => {
+    const cardsPromise = new Promise((resolve, reject) => {
+      fetch(`${this.API_URI}/cards`)
+        .then(response => response.json())
+        .then(data => {
           data.forEach(card => {
             this.cardList.push(card);
           });
-
           resolve();
+        })
+        .catch(err => {
+          reject();
+          console.log(err);
         });
-      })
+    });
+
+    Promise.all([merchantsPromise, cardsPromise])
       .then(() => {
         this.transactionForm.render(this.merchantList, this.cardList);
       })
