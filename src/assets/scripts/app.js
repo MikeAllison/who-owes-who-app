@@ -5,8 +5,8 @@ import { TransactionForm } from './transaction-form.js';
 
 class App {
   constructor() {
-    //this.API_URI = 'http://localhost:3000';
-    this.API_URI = 'https://who-owes-who-api.herokuapp.com';
+    this.API_URI = 'http://localhost:3000';
+    //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
     this.cardList = [];
     this.recentTransactions = [];
@@ -64,13 +64,16 @@ class App {
     fetch(`${this.API_URI}/cards`)
       .then(response => response.json())
       .then(data => {
-        data.forEach(card => {
-          this.cardList.push(card);
-        });
+        new Promise((resolve, reject) => {
+          data.forEach(card => {
+            this.cardList.push(card);
+          });
 
-        setTimeout(() => {
-          this.transactionForm.render(this.merchantList, this.cardList);
-        }, 500);
+          resolve();
+        });
+      })
+      .then(() => {
+        this.transactionForm.render(this.merchantList, this.cardList);
       })
       .catch(err => console.log(err));
   }
