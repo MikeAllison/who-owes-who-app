@@ -68,7 +68,9 @@ class App {
           this.cardList.push(card);
         });
 
-        this.transactionForm.render(this.merchantList, this.cardList);
+        setTimeout(() => {
+          this.transactionForm.render(this.merchantList, this.cardList);
+        }, 1000);
       })
       .catch(err => console.log(err));
   }
