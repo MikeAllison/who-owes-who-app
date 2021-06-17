@@ -20,45 +20,10 @@
         class="ui green center aligned raised segment"
         id="tally-section"
       ></section>
-      <section class="ui green center aligned raised segment">
-        <h2>Transaction Details</h2>
-        <form class="ui form">
-          <div class="field" id="merchant-select-field">
-            <select
-              name="merchant-select"
-              id="merchant-select"
-              class="ui search loading dropdown"
-            >
-              <option value="">Select Merchant</option>
-            </select>
-          </div>
-          <div class="hidden field" id="new-merchant-field">
-            <div class="ui fluid left icon input">
-              <input placeholder="Merchant Name" id="new-merchant-input" />
-              <i class="building outline icon"></i>
-            </div>
-          </div>
-          <div class="field">
-            <button class="ui green basic button" id="merchant-toggle-btn">
-              New Merchant
-            </button>
-          </div>
-          <div class="field">
-            <div class="ui labeled fluid input">
-              <label for="amount-input" class="ui label">$</label>
-              <input
-                inputmode="decimal"
-                placeholder="Amount"
-                id="amount-input"
-              />
-            </div>
-          </div>
-        </form>
-        <section class="ui green center aligned segment">
-          <h2>Select Card</h2>
-          <div class="spaced" id="submit-btn-section"></div>
-        </section>
-      </section>
+      <section
+        class="ui green center aligned raised segment"
+        id="transaction-form"
+      ></section>
       <section
         class="ui green center aligned raised segment"
         id="recent-transactions"
