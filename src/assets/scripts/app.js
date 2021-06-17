@@ -70,7 +70,7 @@ class App {
 
         setTimeout(() => {
           this.transactionForm.render(this.merchantList, this.cardList);
-        }, 1000);
+        }, 500);
       })
       .catch(err => console.log(err));
   }
