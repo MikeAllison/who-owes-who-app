@@ -5,8 +5,8 @@ import { TransactionForm } from './transaction-form.js';
 
 class App {
   constructor() {
-    this.API_URI = 'http://localhost:3000';
-    //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
+    //this.API_URI = 'http://localhost:3000';
+    this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
     this.cardList = [];
     this.recentTransactions = [];
