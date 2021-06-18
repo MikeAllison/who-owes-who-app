@@ -145,11 +145,11 @@ export class TransactionForm extends HTMLElement {
           }
 
           const amount = +(+this.amountInput.value).toFixed(2);
-          if (!amount > 0) {
-            throw new Error('Amount Must Be More Than $0');
-          }
           if (isNaN(amount)) {
             throw new Error('Amount Is Not A Number');
+          }
+          if (!amount > 0) {
+            throw new Error('Amount Must Be More Than $0');
           }
 
           if (!e.currentTarget.dataset.cardId) {
@@ -213,6 +213,21 @@ export class TransactionForm extends HTMLElement {
 
     this.newCardSubmitBtn.addEventListener('click', e => {
       e.preventDefault();
+
+      try {
+        let cardNumber = this.newCardInput.value;
+        if (cardNumber.length !== 4) {
+          throw new Error('Card Number Must Be 4 Digits');
+        }
+        cardNumber = +cardNumber;
+        if (isNaN(+cardNumber)) {
+          throw new Error('Card Number Is Not A Number');
+        }
+
+        console.log(typeof cardNumber);
+      } catch (err) {
+        console.log(err.message);
+      }
     });
 
     $(this.merchantSelect).dropdown();
