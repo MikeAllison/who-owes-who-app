@@ -57,19 +57,18 @@ export class TransactionForm extends HTMLElement {
     this.newMerchantInput = this.querySelector('#new-merchant-input');
     this.merchantToggleBtn = this.querySelector('#merchant-toggle-btn');
     this.amountInput = this.querySelector('#amount-input');
-    //this.newCardField = this.querySelector('#new-card-field');
-    //this.newCardInput = this.querySelector('#new-card-input');
-    //this.newCardCancelBtn = this.querySelector('#new-card-cancel-btn');
-    //this.newCardSubmitBtn = this.querySelector('#new-card-submit-btn');
+    this.newCardField = this.querySelector('#new-card-field');
+    this.newCardInput = this.querySelector('#new-card-input');
+    this.newCardCancelBtn = this.querySelector('#new-card-cancel-btn');
+    this.newCardSubmitBtn = this.querySelector('#new-card-submit-btn');
     this.submitBtnSection = this.querySelector('#submit-btn-section');
-    //this.newCardToggleBtn = this.querySelector('#new-card-toggle-btn');
+    this.newCardToggleBtn = this.querySelector('#new-card-toggle-btn');
 
-    // this.newCardToggleBtn.addEventListener('click', e => {
-    //   e.preventDefault();
-    //   this.newCardField.classList.remove('hidden');
-    //   this.submitBtnSection.classList.add('hidden');
-    //   this.newCardToggleBtn.classList.add('hidden');
-    // });
+    this.newCardToggleBtn.addEventListener('click', e => {
+      this.newCardField.classList.remove('hidden');
+      this.submitBtnSection.classList.add('hidden');
+      this.newCardToggleBtn.classList.add('hidden');
+    });
   }
 
   render(merchants, cards) {

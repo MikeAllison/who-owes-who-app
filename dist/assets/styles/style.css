@@ -7,7 +7,7 @@
 }
 
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 #new-card-cancel-btn,
