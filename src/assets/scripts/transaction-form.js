@@ -43,22 +43,11 @@ export class TransactionForm extends HTMLElement {
       </form>
       <section class="ui green center aligned segment">
         <h2>Select Card</h2>
-        <div class="hidden field" id="new-card-field">
-          <div class="ui fluid left icon input">
-            <input placeholder="Card Number" id="new-card-input" />
-            <i class="credit card outline icon"></i>
-          </div>
-          <button class="ui grey basic button" id="new-card-cancel-btn">
-            Cancel
-          </button>
-          <button class="ui green basic button" id="new-card-submit-btn">
-            Submit
-          </button>
-        </div>
+        
         <div class="spaced" id="submit-btn-section"></div>
         <button class="ui green basic button" id="new-card-toggle-btn">
-            Add Card
-          </button>
+          Add Card
+        </button>
       </section>
     `;
 
@@ -68,19 +57,19 @@ export class TransactionForm extends HTMLElement {
     this.newMerchantInput = this.querySelector('#new-merchant-input');
     this.merchantToggleBtn = this.querySelector('#merchant-toggle-btn');
     this.amountInput = this.querySelector('#amount-input');
-    this.newCardField = this.querySelector('#new-card-field');
-    this.newCardInput = this.querySelector('#new-card-input');
-    this.newCardCancelBtn = this.querySelector('#new-card-cancel-btn');
-    this.newCardSubmitBtn = this.querySelector('#new-card-submit-btn');
+    //this.newCardField = this.querySelector('#new-card-field');
+    //this.newCardInput = this.querySelector('#new-card-input');
+    //this.newCardCancelBtn = this.querySelector('#new-card-cancel-btn');
+    //this.newCardSubmitBtn = this.querySelector('#new-card-submit-btn');
     this.submitBtnSection = this.querySelector('#submit-btn-section');
-    this.newCardToggleBtn = this.querySelector('#new-card-toggle-btn');
+    //this.newCardToggleBtn = this.querySelector('#new-card-toggle-btn');
 
-    this.newCardToggleBtn.addEventListener('click', e => {
-      e.preventDefault();
-      this.newCardField.classList.remove('hidden');
-      this.submitBtnSection.classList.add('hidden');
-      this.newCardToggleBtn.classList.add('hidden');
-    });
+    // this.newCardToggleBtn.addEventListener('click', e => {
+    //   e.preventDefault();
+    //   this.newCardField.classList.remove('hidden');
+    //   this.submitBtnSection.classList.add('hidden');
+    //   this.newCardToggleBtn.classList.add('hidden');
+    // });
   }
 
   render(merchants, cards) {
@@ -204,31 +193,31 @@ export class TransactionForm extends HTMLElement {
     });
 
     // New card button
-    this.newCardCancelBtn.addEventListener('click', e => {
-      e.preventDefault();
-      this.submitBtnSection.classList.remove('hidden');
-      this.newCardField.classList.add('hidden');
-      this.newCardToggleBtn.classList.remove('hidden');
-    });
+    // this.newCardCancelBtn.addEventListener('click', e => {
+    //   e.preventDefault();
+    //   this.submitBtnSection.classList.remove('hidden');
+    //   this.newCardField.classList.add('hidden');
+    //   this.newCardToggleBtn.classList.remove('hidden');
+    // });
 
-    this.newCardSubmitBtn.addEventListener('click', e => {
-      e.preventDefault();
+    // this.newCardSubmitBtn.addEventListener('click', e => {
+    //   e.preventDefault();
 
-      try {
-        let cardNumber = this.newCardInput.value;
-        if (cardNumber.length !== 4) {
-          throw new Error('Card Number Must Be 4 Digits');
-        }
-        cardNumber = +cardNumber;
-        if (isNaN(+cardNumber)) {
-          throw new Error('Card Number Is Not A Number');
-        }
+    //   try {
+    //     let cardNumber = this.newCardInput.value;
+    //     if (cardNumber.length !== 4) {
+    //       throw new Error('Card Number Must Be 4 Digits');
+    //     }
+    //     cardNumber = +cardNumber;
+    //     if (isNaN(+cardNumber)) {
+    //       throw new Error('Card Number Is Not A Number');
+    //     }
 
-        console.log(typeof cardNumber);
-      } catch (err) {
-        console.log(err.message);
-      }
-    });
+    //     console.log(typeof cardNumber);
+    //   } catch (err) {
+    //     console.log(err.message);
+    //   }
+    // });
 
     $(this.merchantSelect).dropdown();
     this.renderHook.appendChild(this);
