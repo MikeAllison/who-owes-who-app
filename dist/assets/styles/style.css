@@ -6,8 +6,8 @@
   padding: 0 14px !important;
 }
 
-.hidden {
-  display: none;
+.display-hidden {
+  display: none !important;
 }
 
 #new-card-cancel-btn,

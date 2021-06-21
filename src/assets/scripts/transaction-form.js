@@ -19,7 +19,7 @@ export class TransactionForm extends HTMLElement {
             <option value="">Select Merchant</option>
           </select>
         </div>
-        <div class="hidden field" id="new-merchant-field">
+        <div class="display-hidden field" id="new-merchant-field">
           <div class="ui fluid left icon input">
             <input placeholder="Merchant Name" id="new-merchant-input" />
             <i class="building outline icon"></i>
@@ -43,7 +43,7 @@ export class TransactionForm extends HTMLElement {
       </form>
       <section class="ui green center aligned segment">
         <h2>Select Card</h2>
-        <div class="hidden field" id="new-card-field">
+        <div class="display-hidden field" id="new-card-field">
           <div class="ui fluid left icon input">
             <input placeholder="Card Number" id="new-card-input" />
             <i class="credit card outline icon"></i>
@@ -76,15 +76,15 @@ export class TransactionForm extends HTMLElement {
     this.submitBtnSection = this.querySelector('#submit-btn-section');
 
     this.newCardToggleBtn.addEventListener('click', e => {
-      this.newCardField.classList.remove('hidden');
-      this.submitBtnSection.classList.add('hidden');
-      this.newCardToggleBtn.classList.add('hidden');
+      this.newCardField.classList.remove('display-hidden');
+      this.submitBtnSection.classList.add('display-hidden');
+      this.newCardToggleBtn.classList.add('display-hidden');
     });
 
     this.newCardCancelBtn.addEventListener('click', e => {
-      this.submitBtnSection.classList.remove('hidden');
-      this.newCardField.classList.add('hidden');
-      this.newCardToggleBtn.classList.remove('hidden');
+      this.submitBtnSection.classList.remove('display-hidden');
+      this.newCardField.classList.add('display-hidden');
+      this.newCardToggleBtn.classList.remove('display-hidden');
     });
 
     this.newCardSubmitBtn.addEventListener('click', e => {
@@ -127,7 +127,7 @@ export class TransactionForm extends HTMLElement {
 
     this.merchantToggleBtn.addEventListener('click', e => {
       e.preventDefault();
-      this.merchantSelectField.classList.toggle('hidden');
+      this.merchantSelectField.classList.toggle('display-hidden');
       this.merchantSelect.value = null;
       this.merchantSelect.parentElement.childNodes[3].classList.add('default');
       this.merchantSelect.parentElement.childNodes[4].childNodes.forEach(node =>
@@ -135,9 +135,9 @@ export class TransactionForm extends HTMLElement {
       );
       this.merchantSelect.parentElement.childNodes[3].innerText =
         'Select Merchant';
-      this.newMerchantField.classList.toggle('hidden');
+      this.newMerchantField.classList.toggle('display-hidden');
       this.newMerchantInput.value = null;
-      if (this.merchantSelectField.classList.contains('hidden')) {
+      if (this.merchantSelectField.classList.contains('display-hidden')) {
         this.merchantToggleBtn.innerText = 'Existing Merchant';
       } else {
         this.merchantToggleBtn.innerText = 'New Merchant';
