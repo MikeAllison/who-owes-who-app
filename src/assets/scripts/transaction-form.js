@@ -43,22 +43,7 @@ export class TransactionForm extends HTMLElement {
       </form>
       <section class="ui green center aligned segment">
         <h2>Select Card</h2>
-        <div class="display-hidden field" id="new-card-field">
-          <div class="ui fluid left icon input">
-            <input placeholder="Card Number" id="new-card-input" />
-            <i class="credit card outline icon"></i>
-          </div>
-          <button class="ui grey basic button" id="new-card-cancel-btn">
-            Cancel
-          </button>
-          <button class="ui green basic button" id="new-card-submit-btn">
-            Submit
-          </button>
-        </div>
         <div class="spaced" id="submit-btn-section"></div>
-        <button class="ui green basic button" id="new-card-toggle-btn">
-          Add Card
-        </button>
       </section>
     `;
 
@@ -68,41 +53,7 @@ export class TransactionForm extends HTMLElement {
     this.newMerchantInput = this.querySelector('#new-merchant-input');
     this.merchantToggleBtn = this.querySelector('#merchant-toggle-btn');
     this.amountInput = this.querySelector('#amount-input');
-    this.newCardField = this.querySelector('#new-card-field');
-    this.newCardInput = this.querySelector('#new-card-input');
-    this.newCardToggleBtn = this.querySelector('#new-card-toggle-btn');
-    this.newCardCancelBtn = this.querySelector('#new-card-cancel-btn');
-    this.newCardSubmitBtn = this.querySelector('#new-card-submit-btn');
     this.submitBtnSection = this.querySelector('#submit-btn-section');
-
-    this.newCardToggleBtn.addEventListener('click', e => {
-      this.newCardField.classList.remove('display-hidden');
-      this.submitBtnSection.classList.add('display-hidden');
-      this.newCardToggleBtn.classList.add('display-hidden');
-    });
-
-    this.newCardCancelBtn.addEventListener('click', e => {
-      this.submitBtnSection.classList.remove('display-hidden');
-      this.newCardField.classList.add('display-hidden');
-      this.newCardToggleBtn.classList.remove('display-hidden');
-    });
-
-    this.newCardSubmitBtn.addEventListener('click', e => {
-      try {
-        let cardNumber = this.newCardInput.value;
-        if (cardNumber.length !== 4) {
-          throw new Error('Card Number Must Be 4 Digits');
-        }
-        cardNumber = +cardNumber;
-        if (isNaN(+cardNumber)) {
-          throw new Error('Card Number Is Not A Number');
-        }
-
-        console.log(typeof cardNumber);
-      } catch (err) {
-        console.log(err.message);
-      }
-    });
   }
 
   render(merchants, cards) {
