@@ -5,12 +5,13 @@ import { TransactionForm } from './transaction-form.js';
 
 class App {
   constructor() {
-    //this.API_URI = 'http://localhost:3000';
-    this.API_URI = 'https://who-owes-who-api.herokuapp.com';
+    this.API_URI = 'http://localhost:3000';
+    //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
     this.merchantList = [];
     this.cardList = [];
     this.recentTransactions = [];
     this.tally = new Map();
+    this.loadingMessage = document.getElementById('loading-message');
     this.basicModal = new BasicModal('basic-modal');
     this.tallySection = new TallySection('tally-section');
     this.transactionForm = new TransactionForm(
@@ -26,31 +27,34 @@ class App {
   init() {
     this.basicModal.init();
 
-    fetch(`${this.API_URI}/transactions`)
-      .then(response => response.json())
-      .then(data => {
-        data.forEach(card => {
-          // Add the cardholder to the tally map
-          if (!this.tally.has(card.cardholder)) {
-            this.tally.set(card.cardholder, { transactionTotal: 0 });
-          }
+    const transactionsPromise = new Promise((resolve, reject) => {
+      fetch(`${this.API_URI}/transactions`)
+        .then(response => response.json())
+        .then(data => {
+          data.forEach(card => {
+            // Add the cardholder to the tally map
+            if (!this.tally.has(card.cardholder)) {
+              this.tally.set(card.cardholder, { transactionTotal: 0 });
+            }
 
-          card.transactions.forEach(transaction => {
-            // Add .purchaser property onto transaction object
-            transaction.purchaser = card.cardholder;
-            this.recentTransactions.push(transaction);
+            card.transactions.forEach(transaction => {
+              // Add .purchaser property onto transaction object
+              transaction.purchaser = card.cardholder;
+              this.recentTransactions.push(transaction);
 
-            // Add the transaction to the tally map
-            this.tally.get(card.cardholder).transactionTotal +=
-              transaction.amount;
+              // Add the transaction to the tally map
+              this.tally.get(card.cardholder).transactionTotal +=
+                transaction.amount;
+            });
           });
-        });
 
-        // Render dynamic elements to page
-        this.tallySection.render(this.tally);
-        this.recentTransactionsTable.render(this.recentTransactions);
-      })
-      .catch(err => console.log(err));
+          resolve();
+        })
+        .catch(err => {
+          reject();
+          console.log(err);
+        });
+    });
 
     const merchantsPromise = new Promise((resolve, reject) => {
       fetch(`${this.API_URI}/merchants`)
@@ -82,9 +86,12 @@ class App {
         });
     });
 
-    Promise.all([merchantsPromise, cardsPromise])
+    Promise.all([transactionsPromise, merchantsPromise, cardsPromise])
       .then(() => {
+        this.loadingMessage.classList.add('display-hidden');
+        this.tallySection.render(this.tally);
         this.transactionForm.render(this.merchantList, this.cardList);
+        this.recentTransactionsTable.render(this.recentTransactions);
       })
       .catch(err => console.log(err));
   }
