@@ -92,7 +92,7 @@ export class TransactionForm extends HTMLElement {
       if (this.merchantSelectField.classList.contains('display-hidden')) {
         this.merchantToggleBtn.innerHTML = `
           <i class="shopping cart icon"></i>
-          Existing Merchant'
+          Existing Merchant
         `;
       } else {
         this.merchantToggleBtn.innerHTML = `
