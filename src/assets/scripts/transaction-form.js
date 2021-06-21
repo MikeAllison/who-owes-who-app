@@ -22,11 +22,12 @@ export class TransactionForm extends HTMLElement {
         <div class="display-hidden field" id="new-merchant-field">
           <div class="ui fluid left icon input">
             <input placeholder="Merchant Name" id="new-merchant-input" />
-            <i class="building outline icon"></i>
+            <i class="cart plus icon"></i>
           </div>
         </div>
         <div class="field">
           <button class="ui green basic button" id="merchant-toggle-btn">
+            <i class="green cart plus icon"></i>
             New Merchant
           </button>
         </div>
@@ -89,9 +90,15 @@ export class TransactionForm extends HTMLElement {
       this.newMerchantField.classList.toggle('display-hidden');
       this.newMerchantInput.value = null;
       if (this.merchantSelectField.classList.contains('display-hidden')) {
-        this.merchantToggleBtn.innerText = 'Existing Merchant';
+        this.merchantToggleBtn.innerHTML = `
+          <i class="shopping cart icon"></i>
+          Existing Merchant'
+        `;
       } else {
-        this.merchantToggleBtn.innerText = 'New Merchant';
+        this.merchantToggleBtn.innerHTML = `
+        <i class="cart plus icon"></i>
+          New Merchant
+        `;
       }
     });
 
@@ -100,7 +107,7 @@ export class TransactionForm extends HTMLElement {
       btn.classList = 'ui green button card-btn';
       btn.dataset.cardId = card.id;
       btn.dataset.cardholder = card.cardholder;
-      btn.innerText = card.id;
+      btn.innerHTML = `<i class="credit card outline icon"></i> ${card.id}`;
       this.submitBtnSection.appendChild(btn);
 
       btn.addEventListener('click', e => {

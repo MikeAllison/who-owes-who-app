@@ -36,13 +36,15 @@ export class RecentTransactionsTable extends HTMLElement {
       tbodyEl.innerHTML += `
         <tr class=${transaction.archived ? 'disabled' : ''}>
           <td>
+            <i class="green money bill alternate outline icon"></i>
             ${transaction.merchantName} - ${month}/${day}/${year}
           </td>
           <td>
-            <i class="green money bill alternate outline icon"></i>
+            <i class="green user alternate outline icon"></i>
             ${transaction.purchaser} - $${transaction.amount.toFixed(2)}
           </td>
           <td>
+            <i class="green save outline icon"></i>
             ${transaction.archived ? 'Archived' : 'Active'}
           </td>
         </tr>`;
