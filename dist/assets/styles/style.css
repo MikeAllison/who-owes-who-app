@@ -6,13 +6,25 @@
   padding: 0 14px !important;
 }
 
-.hidden {
-  display: none;
+.display-hidden {
+  display: none !important;
+}
+
+#new-card-cancel-btn,
+#new-card-submit-btn,
+#new-card-toggle-btn {
+  margin-top: 14px;
 }
 
 .spaced {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card-btn {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
 }
 
 .label {

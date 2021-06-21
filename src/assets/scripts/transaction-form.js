@@ -19,7 +19,7 @@ export class TransactionForm extends HTMLElement {
             <option value="">Select Merchant</option>
           </select>
         </div>
-        <div class="hidden field" id="new-merchant-field">
+        <div class="display-hidden field" id="new-merchant-field">
           <div class="ui fluid left icon input">
             <input placeholder="Merchant Name" id="new-merchant-input" />
             <i class="building outline icon"></i>
@@ -43,7 +43,22 @@ export class TransactionForm extends HTMLElement {
       </form>
       <section class="ui green center aligned segment">
         <h2>Select Card</h2>
+        <div class="display-hidden field" id="new-card-field">
+          <div class="ui fluid left icon input">
+            <input placeholder="Card Number" id="new-card-input" />
+            <i class="credit card outline icon"></i>
+          </div>
+          <button class="ui grey basic button" id="new-card-cancel-btn">
+            Cancel
+          </button>
+          <button class="ui green basic button" id="new-card-submit-btn">
+            Submit
+          </button>
+        </div>
         <div class="spaced" id="submit-btn-section"></div>
+        <button class="ui green basic button" id="new-card-toggle-btn">
+          Add Card
+        </button>
       </section>
     `;
 
@@ -53,7 +68,41 @@ export class TransactionForm extends HTMLElement {
     this.newMerchantInput = this.querySelector('#new-merchant-input');
     this.merchantToggleBtn = this.querySelector('#merchant-toggle-btn');
     this.amountInput = this.querySelector('#amount-input');
+    this.newCardField = this.querySelector('#new-card-field');
+    this.newCardInput = this.querySelector('#new-card-input');
+    this.newCardToggleBtn = this.querySelector('#new-card-toggle-btn');
+    this.newCardCancelBtn = this.querySelector('#new-card-cancel-btn');
+    this.newCardSubmitBtn = this.querySelector('#new-card-submit-btn');
     this.submitBtnSection = this.querySelector('#submit-btn-section');
+
+    this.newCardToggleBtn.addEventListener('click', e => {
+      this.newCardField.classList.remove('display-hidden');
+      this.submitBtnSection.classList.add('display-hidden');
+      this.newCardToggleBtn.classList.add('display-hidden');
+    });
+
+    this.newCardCancelBtn.addEventListener('click', e => {
+      this.submitBtnSection.classList.remove('display-hidden');
+      this.newCardField.classList.add('display-hidden');
+      this.newCardToggleBtn.classList.remove('display-hidden');
+    });
+
+    this.newCardSubmitBtn.addEventListener('click', e => {
+      try {
+        let cardNumber = this.newCardInput.value;
+        if (cardNumber.length !== 4) {
+          throw new Error('Card Number Must Be 4 Digits');
+        }
+        cardNumber = +cardNumber;
+        if (isNaN(+cardNumber)) {
+          throw new Error('Card Number Is Not A Number');
+        }
+
+        console.log(typeof cardNumber);
+      } catch (err) {
+        console.log(err.message);
+      }
+    });
   }
 
   render(merchants, cards) {
@@ -78,7 +127,7 @@ export class TransactionForm extends HTMLElement {
 
     this.merchantToggleBtn.addEventListener('click', e => {
       e.preventDefault();
-      this.merchantSelectField.classList.toggle('hidden');
+      this.merchantSelectField.classList.toggle('display-hidden');
       this.merchantSelect.value = null;
       this.merchantSelect.parentElement.childNodes[3].classList.add('default');
       this.merchantSelect.parentElement.childNodes[4].childNodes.forEach(node =>
@@ -86,9 +135,9 @@ export class TransactionForm extends HTMLElement {
       );
       this.merchantSelect.parentElement.childNodes[3].innerText =
         'Select Merchant';
-      this.newMerchantField.classList.toggle('hidden');
+      this.newMerchantField.classList.toggle('display-hidden');
       this.newMerchantInput.value = null;
-      if (this.merchantSelectField.classList.contains('hidden')) {
+      if (this.merchantSelectField.classList.contains('display-hidden')) {
         this.merchantToggleBtn.innerText = 'Existing Merchant';
       } else {
         this.merchantToggleBtn.innerText = 'New Merchant';
@@ -118,11 +167,11 @@ export class TransactionForm extends HTMLElement {
           }
 
           const amount = +(+this.amountInput.value).toFixed(2);
-          if (!amount > 0) {
-            throw new Error('Amount Must Be More Than $0');
-          }
           if (isNaN(amount)) {
             throw new Error('Amount Is Not A Number');
+          }
+          if (!amount > 0) {
+            throw new Error('Amount Must Be More Than $0');
           }
 
           if (!e.currentTarget.dataset.cardId) {
