@@ -34,7 +34,7 @@ export class RecentTransactionsTable extends HTMLElement {
       const year = enteredDate.getFullYear();
 
       tbodyEl.innerHTML += `
-        <tr>
+        <tr class=${transaction.archived ? 'disabled' : ''}>
           <td>
             ${transaction.merchantName} - ${month}/${day}/${year}
           </td>
@@ -43,7 +43,7 @@ export class RecentTransactionsTable extends HTMLElement {
             ${transaction.purchaser} - $${transaction.amount.toFixed(2)}
           </td>
           <td>
-            Status: ${transaction.archived ? 'Archived' : 'Active'}
+            ${transaction.archived ? 'Archived' : 'Active'}
           </td>
         </tr>`;
     });
