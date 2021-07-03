@@ -12,7 +12,8 @@
   justify-content: space-evenly;
 }
 
-#app {
+#app,
+#auth {
   padding-top: 14px;
 }
 
