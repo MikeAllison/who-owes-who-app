@@ -28,7 +28,7 @@ class AuthHandler {
               return;
             }
 
-            fetch(`${this.AUTH_URI}`, {
+            fetch(`${this.AUTH_URI}/auth`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
