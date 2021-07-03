@@ -42,11 +42,13 @@ class AuthHandler {
               })
               .catch(err => {
                 $(this.authModal).modal('show');
+                this.codeInput.value = null;
               });
           });
         })
         .catch(err => {
           $(this.authModal).modal('show'); // Request of verification code
+          this.codeInput.value = null;
         });
     });
   }
