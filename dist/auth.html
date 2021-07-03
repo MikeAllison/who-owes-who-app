@@ -9,14 +9,7 @@
     />
     <title>Who-Owes-Who - Auth</title>
     <link rel="stylesheet" href="./lib/semantic-ui/semantic.min.css" />
-    <style>
-      .hidden {
-        display: none;
-      }
-      .ui.text.container {
-        margin-top: 14px;
-      }
-    </style>
+    <link rel="stylesheet" href="./assets/styles/style.css" />
     <script src="./lib/jquery/jquery-3.1.1.min.js" defer></script>
     <script src="./lib/semantic-ui/semantic.min.js" defer></script>
     <script src="./assets/scripts/auth.js" type="module" defer></script>
@@ -32,7 +25,7 @@
             </button>
           </div>
         </form>
-        <form class="hidden ui form" id="verify-form">
+        <form class="display-hidden ui form" id="verify-form">
           <div class="field">
             <input
               inputmode="decimal"
@@ -48,6 +41,18 @@
           </div>
         </form>
       </section>
+    </div>
+    <div class="ui basic modal" id="auth-modal">
+      <div class="ui icon header">
+        <i class="orange exclamation triangle icon"></i>
+        Verification Failed!
+      </div>
+      <div class="actions" style="text-align: center">
+        <div class="ui orange ok inverted button">
+          <i class="checkmark icon"></i>
+          Go Back
+        </div>
+      </div>
     </div>
   </body>
 </html>

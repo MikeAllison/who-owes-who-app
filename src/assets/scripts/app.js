@@ -28,7 +28,7 @@ class App {
   init() {
     this.basicModal.init();
 
-    this.authToken = sessionStorage.getItem('wowtoken');
+    this.authToken = sessionStorage.getItem('wow-token');
 
     const transactionsPromise = new Promise((resolve, reject) => {
       fetch(`${this.API_URI}/transactions`, {
@@ -41,7 +41,7 @@ class App {
           if (response.status === 401) {
             reject(response);
           }
-          response.json();
+          return response.json();
         })
         .then(data => {
           data.forEach(card => {
@@ -80,7 +80,7 @@ class App {
           if (response.status === 401) {
             reject(response);
           }
-          response.json();
+          return response.json();
         })
         .then(data => {
           data.forEach(merchant => {
@@ -105,7 +105,7 @@ class App {
           if (response.status === 401) {
             reject(response);
           }
-          response.json();
+          return response.json();
         })
         .then(data => {
           data.forEach(card => {
