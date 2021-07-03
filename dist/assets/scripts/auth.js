@@ -1,7 +1,7 @@
 class AuthHandler {
   constructor() {
     this.APP_URI = 'http://127.0.0.1:8080';
-    this.AUTH_URI = 'http://localhost:3000/auth';
+    this.AUTH_URI = 'http://localhost:3000/api/auth';
     this.requestForm = document.getElementById('request-form');
     this.requestBtn = document.getElementById('request-btn');
     this.verifyForm = document.getElementById('verify-form');

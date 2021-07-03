@@ -4,6 +4,7 @@ export class TransactionForm extends HTMLElement {
   constructor(API_URI, appModal, renderHook) {
     super();
     this.API_URI = API_URI;
+    this.authToken = sessionStorage.getItem('wow-token');
     this.appModal = appModal;
     this.renderHook = document.getElementById(renderHook);
 
@@ -154,6 +155,7 @@ export class TransactionForm extends HTMLElement {
                 fetch(`${this.API_URI}/transactions`, {
                   method: 'POST',
                   headers: {
+                    Authorization: `Bearer ${this.authToken}`,
                     'Content-Type': 'application/json'
                   },
                   body: JSON.stringify(transaction)

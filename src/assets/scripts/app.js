@@ -5,9 +5,9 @@ import { TransactionForm } from './transaction-form.js';
 
 class App {
   constructor() {
-    this.API_URI = 'http://localhost:3000';
-    //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
-    this.authToken = null;
+    this.API_URI = 'http://localhost:3000/api';
+    //this.API_URI = 'https://who-owes-who.herokuapp.com/api';
+    this.authToken = sessionStorage.getItem('wow-token');
     this.merchantList = [];
     this.cardList = [];
     this.recentTransactions = [];
@@ -28,13 +28,11 @@ class App {
   init() {
     this.basicModal.init();
 
-    this.authToken = sessionStorage.getItem('wow-token');
-
     const transactionsPromise = new Promise((resolve, reject) => {
       fetch(`${this.API_URI}/transactions`, {
         method: 'GET',
         headers: {
-          Authorization: 'Bearer ' + this.authToken
+          Authorization: `Bearer ${this.authToken}`
         }
       })
         .then(response => {
@@ -73,7 +71,7 @@ class App {
       fetch(`${this.API_URI}/merchants`, {
         method: 'GET',
         headers: {
-          Authorization: 'Bearer ' + this.authToken
+          Authorization: `Bearer ${this.authToken}`
         }
       })
         .then(response => {
@@ -98,7 +96,7 @@ class App {
       fetch(`${this.API_URI}/cards`, {
         method: 'GET',
         headers: {
-          Authorization: 'Bearer ' + this.authToken
+          Authorization: `Bearer ${this.authToken}`
         }
       })
         .then(response => {
