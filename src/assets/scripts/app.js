@@ -7,6 +7,7 @@ class App {
   constructor() {
     this.API_URI = 'http://localhost:3000';
     //this.API_URI = 'https://who-owes-who-api.herokuapp.com';
+    this.authToken = null;
     this.merchantList = [];
     this.cardList = [];
     this.recentTransactions = [];
@@ -27,9 +28,21 @@ class App {
   init() {
     this.basicModal.init();
 
+    this.authToken = sessionStorage.getItem('wowtoken');
+
     const transactionsPromise = new Promise((resolve, reject) => {
-      fetch(`${this.API_URI}/transactions`)
-        .then(response => response.json())
+      fetch(`${this.API_URI}/transactions`, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + this.authToken
+        }
+      })
+        .then(response => {
+          if (response.status === 401) {
+            reject(response);
+          }
+          response.json();
+        })
         .then(data => {
           data.forEach(card => {
             // Add the cardholder to the tally map
@@ -57,8 +70,18 @@ class App {
     });
 
     const merchantsPromise = new Promise((resolve, reject) => {
-      fetch(`${this.API_URI}/merchants`)
-        .then(response => response.json())
+      fetch(`${this.API_URI}/merchants`, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + this.authToken
+        }
+      })
+        .then(response => {
+          if (response.status === 401) {
+            reject(response);
+          }
+          response.json();
+        })
         .then(data => {
           data.forEach(merchant => {
             this.merchantList.push(merchant);
@@ -72,8 +95,18 @@ class App {
     });
 
     const cardsPromise = new Promise((resolve, reject) => {
-      fetch(`${this.API_URI}/cards`)
-        .then(response => response.json())
+      fetch(`${this.API_URI}/cards`, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + this.authToken
+        }
+      })
+        .then(response => {
+          if (response.status === 401) {
+            reject(response);
+          }
+          response.json();
+        })
         .then(data => {
           data.forEach(card => {
             this.cardList.push(card);
@@ -93,7 +126,13 @@ class App {
         this.transactionForm.render(this.merchantList, this.cardList);
         this.recentTransactionsTable.render(this.recentTransactions);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        if (err.status === 401) {
+          window.location = `${window.origin}/auth`;
+        } else {
+          console.log(err);
+        }
+      });
   }
 }
 

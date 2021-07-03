@@ -9,6 +9,14 @@
     />
     <title>Who-Owes-Who - Auth</title>
     <link rel="stylesheet" href="./lib/semantic-ui/semantic.min.css" />
+    <style>
+      .hidden {
+        display: none;
+      }
+      .ui.text.container {
+        margin-top: 14px;
+      }
+    </style>
     <script src="./lib/jquery/jquery-3.1.1.min.js" defer></script>
     <script src="./lib/semantic-ui/semantic.min.js" defer></script>
     <script src="./assets/scripts/auth.js" type="module" defer></script>
@@ -16,11 +24,28 @@
   <body>
     <div class="ui text container">
       <section class="ui green center aligned raised segment">
-        <form class="ui form">
-          <button class="ui green button" type="submit" id="auth-btn">
-            <i class="unlock alternate icon"></i>
-            Auth
-          </button>
+        <form class="ui form" id="request-form">
+          <div class="field">
+            <button class="ui green button" type="submit" id="request-btn">
+              <i class="unlock alternate icon"></i>
+              Request Code
+            </button>
+          </div>
+        </form>
+        <form class="hidden ui form" id="verify-form">
+          <div class="field">
+            <input
+              inputmode="decimal"
+              placeholder="Verification Code"
+              id="code-input"
+            />
+          </div>
+          <div class="field">
+            <button class="ui green button" type="submit" id="verify-btn">
+              <i class="unlock alternate icon"></i>
+              Verify
+            </button>
+          </div>
         </form>
       </section>
     </div>

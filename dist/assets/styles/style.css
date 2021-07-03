@@ -2,12 +2,18 @@
   --semantic-green: #21ba45;
 }
 
-.ui.icon.header {
-  padding: 0 14px !important;
-}
-
 .display-hidden {
   display: none !important;
+}
+
+.spaced {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+#app {
+  padding-top: 14px;
 }
 
 #new-card-cancel-btn,
@@ -16,10 +22,8 @@
   margin-top: 14px;
 }
 
-.spaced {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+.ui.icon.header {
+  padding: 0 14px !important;
 }
 
 .card-btn {
@@ -31,16 +35,6 @@
   background-color: var(--semantic-green) !important;
   color: #fff !important;
 }
-
-#app {
-  padding-top: 14px;
-}
-
-/* @media screen and (min-width: 768px) {
-  .ui.text.container {
-    max-width: 500px !important;
-  }
-} */
 
 @media screen and (max-width: 767px) {
   recent-transactions-table > table > tbody > tr {
