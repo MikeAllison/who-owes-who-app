@@ -1,7 +1,9 @@
 class AuthHandler {
   constructor() {
-    this.APP_URI = 'http://127.0.0.1:8080';
-    this.AUTH_URI = 'http://localhost:3000/api/auth';
+    //this.APP_URI = 'http://127.0.0.1:8080';
+    this.APP_URI = 'https://who-owes-who.5apps.com';
+    //this.AUTH_URI = 'http://localhost:3000/api';
+    this.AUTH_URI = 'https://who-owes-who.herokuapp.com/api';
     this.requestForm = document.getElementById('request-form');
     this.requestBtn = document.getElementById('request-btn');
     this.verifyForm = document.getElementById('verify-form');
@@ -12,7 +14,7 @@ class AuthHandler {
     this.requestBtn.addEventListener('click', e => {
       e.preventDefault();
 
-      fetch(`${this.AUTH_URI}`)
+      fetch(`${this.AUTH_URI}/auth`)
         .then(response => {
           this.requestForm.classList.add('display-hidden');
           this.verifyForm.classList.remove('display-hidden');
