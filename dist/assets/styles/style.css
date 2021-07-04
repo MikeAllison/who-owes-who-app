@@ -17,6 +17,17 @@
   padding-top: 14px;
 }
 
+#auth {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#auth-section {
+  width: 320px;
+}
+
 #new-card-cancel-btn,
 #new-card-submit-btn,
 #new-card-toggle-btn {
