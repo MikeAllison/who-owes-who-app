@@ -36,9 +36,11 @@ export class TransactionForm extends HTMLElement {
           <div class="ui labeled fluid input">
             <label for="amount-input" class="ui label">$</label>
             <input
+              type="text"
+              name="amount-input"
+              id="amount-input"
               inputmode="decimal"
               placeholder="Amount"
-              id="amount-input"
             />
           </div>
         </div>

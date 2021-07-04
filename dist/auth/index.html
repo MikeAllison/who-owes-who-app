@@ -28,11 +28,13 @@
         <form class="display-hidden ui form" id="verify-form">
           <div class="field">
             <input
-              inputmode="numeric"
-              placeholder="Verification Code"
+              type="text"
+              name="code-input"
               id="code-input"
-              autocomplete="one-time-code"
+              placeholder="Verification Code"
+              inputmode="numeric"
               pattern="[0-9]*"
+              autocomplete="one-time-code"
             />
           </div>
           <div class="field">
