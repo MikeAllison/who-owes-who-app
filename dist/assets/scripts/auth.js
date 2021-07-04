@@ -16,6 +16,10 @@ class AuthHandler {
 
       fetch(`${this.AUTH_URI}/auth`)
         .then(response => {
+          if (response.status === 403) {
+            throw new Error('Account Locked');
+          }
+
           this.requestForm.classList.add('display-hidden');
           this.verifyForm.classList.remove('display-hidden');
 
