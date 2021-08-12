@@ -5,14 +5,14 @@ export class RecentTransactionsTable extends HTMLElement {
     this.cssClasses =
       'ui striped three column green very compact small single line table';
     this.innerHTML = `
-      <h2>Recent Transactions</h2>
+      <h2>Active Transactions</h2>
     `;
   }
 
   render(transactions) {
     if (transactions.length === 0) {
       this.innerHTML += `
-        <p>No Transactions</p>
+        <p>All Transactions Have Been Archived</p>
       `;
       this.renderHook.appendChild(this);
       return;
