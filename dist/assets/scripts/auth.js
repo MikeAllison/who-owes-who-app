@@ -14,6 +14,8 @@ class AuthHandler {
     this.requestBtn.addEventListener('click', e => {
       e.preventDefault();
 
+      this.requestBtn.classList.add('disabled');
+
       fetch(`${this.AUTH_URI}/auth`)
         .then(response => {
           if (response.status === 403) {
