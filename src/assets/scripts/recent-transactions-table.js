@@ -34,7 +34,7 @@ export class RecentTransactionsTable extends HTMLElement {
       const year = enteredDate.getFullYear();
 
       tbodyEl.innerHTML += `
-        <tr class=${transaction.archived ? 'disabled' : ''}>
+        <tr>
           <td>
             <i class="green money bill alternate outline icon"></i>
             ${transaction.merchantName} - ${month}/${day}/${year}
@@ -42,10 +42,6 @@ export class RecentTransactionsTable extends HTMLElement {
           <td>
             <i class="green user alternate outline icon"></i>
             ${transaction.purchaser} - $${transaction.amount.toFixed(2)}
-          </td>
-          <td>
-            <i class="green save outline icon"></i>
-            ${transaction.archived ? 'Archived' : 'Active'}
           </td>
         </tr>`;
     });
