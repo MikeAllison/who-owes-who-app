@@ -6,7 +6,7 @@ import { TransactionForm } from './transaction-form.js';
 class App {
   constructor() {
     //this.API_URI = 'http://localhost:3000/api';
-    this.API_URI = 'https://who-owes-who.herokuapp.com/api';
+    this.API_URI = 'https://who-owes-who-api-373801.uk.r.appspot.com/api';
     this.authToken = sessionStorage.getItem('wow-token');
     this.merchantList = [];
     this.cardList = [];
