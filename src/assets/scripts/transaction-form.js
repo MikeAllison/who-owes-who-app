@@ -1,10 +1,10 @@
-import { Transaction } from './transaction.js';
+import { Transaction } from "./transaction.js";
 
 export class TransactionForm extends HTMLElement {
   constructor(API_URI, appModal, renderHook) {
     super();
     this.API_URI = API_URI;
-    this.authToken = sessionStorage.getItem('wow-token');
+    this.authToken = sessionStorage.getItem("wow-token");
     this.appModal = appModal;
     this.renderHook = document.getElementById(renderHook);
 
@@ -51,13 +51,13 @@ export class TransactionForm extends HTMLElement {
       </section>
     `;
 
-    this.merchantSelectField = this.querySelector('#merchant-select-field');
-    this.merchantSelect = this.querySelector('#merchant-select');
-    this.newMerchantField = this.querySelector('#new-merchant-field');
-    this.newMerchantInput = this.querySelector('#new-merchant-input');
-    this.merchantToggleBtn = this.querySelector('#merchant-toggle-btn');
-    this.amountInput = this.querySelector('#amount-input');
-    this.submitBtnSection = this.querySelector('#submit-btn-section');
+    this.merchantSelectField = this.querySelector("#merchant-select-field");
+    this.merchantSelect = this.querySelector("#merchant-select");
+    this.newMerchantField = this.querySelector("#new-merchant-field");
+    this.newMerchantInput = this.querySelector("#new-merchant-input");
+    this.merchantToggleBtn = this.querySelector("#merchant-toggle-btn");
+    this.amountInput = this.querySelector("#amount-input");
+    this.submitBtnSection = this.querySelector("#submit-btn-section");
   }
 
   render(merchants, cards) {
@@ -73,26 +73,26 @@ export class TransactionForm extends HTMLElement {
       return 0;
     });
 
-    merchants.forEach(merchant => {
-      const optionEl = document.createElement('option');
-      optionEl.setAttribute('value', merchant.name);
+    merchants.forEach((merchant) => {
+      const optionEl = document.createElement("option");
+      optionEl.setAttribute("value", merchant.name);
       optionEl.innerText = merchant.name;
       this.merchantSelect.appendChild(optionEl);
     });
 
-    this.merchantToggleBtn.addEventListener('click', e => {
+    this.merchantToggleBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      this.merchantSelectField.classList.toggle('display-hidden');
+      this.merchantSelectField.classList.toggle("display-hidden");
       this.merchantSelect.value = null;
-      this.merchantSelect.parentElement.childNodes[3].classList.add('default');
-      this.merchantSelect.parentElement.childNodes[4].childNodes.forEach(node =>
-        node.classList.remove('active', 'selected')
+      this.merchantSelect.parentElement.childNodes[3].classList.add("default");
+      this.merchantSelect.parentElement.childNodes[4].childNodes.forEach(
+        (node) => node.classList.remove("active", "selected")
       );
       this.merchantSelect.parentElement.childNodes[3].innerText =
-        'Select Merchant';
-      this.newMerchantField.classList.toggle('display-hidden');
+        "Select Merchant";
+      this.newMerchantField.classList.toggle("display-hidden");
       this.newMerchantInput.value = null;
-      if (this.merchantSelectField.classList.contains('display-hidden')) {
+      if (this.merchantSelectField.classList.contains("display-hidden")) {
         this.merchantToggleBtn.innerHTML = `
           <i class="shopping cart icon"></i>
           Existing Merchant
@@ -105,15 +105,16 @@ export class TransactionForm extends HTMLElement {
       }
     });
 
-    cards.forEach(card => {
-      const btn = document.createElement('button');
-      btn.classList = 'ui green button card-btn';
+    cards.forEach((card) => {
+      const btn = document.createElement("button");
+      btn.classList = "ui green button card-btn";
       btn.dataset.cardId = card.id;
       btn.dataset.cardholder = card.cardholder;
-      btn.innerHTML = `<i class="credit card outline icon"></i> ${card.id}`;
+      btn.dataset.cardholderInitials = card.cardholderInitials;
+      btn.innerHTML = `<i class="credit card outline icon"></i> ${card.id} (${card.cardholderInitials})`;
       this.submitBtnSection.appendChild(btn);
 
-      btn.addEventListener('click', e => {
+      btn.addEventListener("click", (e) => {
         const merchantName = this.newMerchantInput.value
           ? this.newMerchantInput.value
           : this.merchantSelect.value;
@@ -121,22 +122,22 @@ export class TransactionForm extends HTMLElement {
         // Validate submitted data
         try {
           if (!merchantName) {
-            throw new Error('Missing Merchant');
+            throw new Error("Missing Merchant");
           }
           if (!this.amountInput.value) {
-            throw new Error('Missing Amount');
+            throw new Error("Missing Amount");
           }
 
           const amount = +(+this.amountInput.value).toFixed(2);
           if (isNaN(amount)) {
-            throw new Error('Amount Is Not A Number');
+            throw new Error("Amount Is Not A Number");
           }
           if (!amount > 0) {
-            throw new Error('Amount Must Be More Than $0');
+            throw new Error("Amount Must Be More Than $0");
           }
 
           if (!e.currentTarget.dataset.cardId) {
-            throw new Error('Missing Card ID');
+            throw new Error("Missing Card ID");
           }
 
           const cardholder = e.target.dataset.cardholder;
@@ -155,42 +156,42 @@ export class TransactionForm extends HTMLElement {
               duration: 200,
               onApprove: () => {
                 fetch(`${this.API_URI}/transactions`, {
-                  method: 'POST',
+                  method: "POST",
                   headers: {
                     Authorization: `Bearer ${this.authToken}`,
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json",
                   },
-                  body: JSON.stringify(transaction)
+                  body: JSON.stringify(transaction),
                 })
-                  .then(response => {
+                  .then((response) => {
                     location.reload();
                   })
-                  .catch(err => {
+                  .catch((err) => {
                     this.basicModal.setError(err.message);
                     $(this.appModal.children[0])
                       .modal({
                         closable: false,
                         detachable: false,
-                        duration: 200
+                        duration: 200,
                       })
-                      .modal('show'); // POST /transactions error modal
+                      .modal("show"); // POST /transactions error modal
                   });
-              }
+              },
             })
-            .modal('show'); // Transaction input confirmation modal
+            .modal("show"); // Transaction input confirmation modal
         } catch (err) {
           this.appModal.setError(err.message);
           $(this.appModal.children[0])
             .modal({ closable: false, detachable: false, duration: 200 })
-            .modal('show'); // Input validation error modal
+            .modal("show"); // Input validation error modal
         }
       });
     });
 
     $(this.merchantSelect).dropdown();
     this.renderHook.appendChild(this);
-    this.merchantSelect.parentElement.classList.remove('loading');
+    this.merchantSelect.parentElement.classList.remove("loading");
   }
 }
 
-customElements.define('transaction-form', TransactionForm);
+customElements.define("transaction-form", TransactionForm);

@@ -1,59 +1,59 @@
 class AuthHandler {
   constructor() {
-    //this.APP_URI = 'http://127.0.0.1:8080';
-    this.APP_URI = 'https://who-owes-who.5apps.com';
-    //this.AUTH_URI = 'http://localhost:3000/api';
-    this.AUTH_URI = 'https://who-owes-who.herokuapp.com/api';
-    this.requestForm = document.getElementById('request-form');
-    this.requestBtn = document.getElementById('request-btn');
-    this.verifyForm = document.getElementById('verify-form');
-    this.codeInput = document.getElementById('code-input');
-    this.verifyBtn = document.getElementById('verify-btn');
-    this.authModal = document.getElementById('auth-modal');
+    //this.APP_URI = "http://127.0.0.1:8080";
+    this.APP_URI = "https://who-owes-who.5apps.com";
+    //this.AUTH_URI = "http://localhost:3000/api";
+    this.AUTH_URI = "https://who-owes-who-api-373801.uk.r.appspot.com/api";
+    this.requestForm = document.getElementById("request-form");
+    this.requestBtn = document.getElementById("request-btn");
+    this.verifyForm = document.getElementById("verify-form");
+    this.codeInput = document.getElementById("code-input");
+    this.verifyBtn = document.getElementById("verify-btn");
+    this.authModal = document.getElementById("auth-modal");
 
-    this.requestBtn.addEventListener('click', e => {
+    this.requestBtn.addEventListener("click", (e) => {
       e.preventDefault();
 
-      this.requestBtn.classList.add('disabled');
+      this.requestBtn.classList.add("disabled");
 
       fetch(`${this.AUTH_URI}/auth`)
-        .then(response => {
+        .then((response) => {
           if (response.status === 403) {
-            throw new Error('Account Locked');
+            throw new Error("Account Locked");
           }
 
-          this.requestForm.classList.add('display-hidden');
-          this.verifyForm.classList.remove('display-hidden');
+          this.requestForm.classList.add("display-hidden");
+          this.verifyForm.classList.remove("display-hidden");
 
-          this.verifyBtn.addEventListener('click', e => {
+          this.verifyBtn.addEventListener("click", (e) => {
             e.preventDefault();
 
             if (!this.codeInput.value || isNaN(this.codeInput.value)) {
-              $(this.authModal).modal('show');
+              $(this.authModal).modal("show");
               this.codeInput.value = null;
               return;
             }
 
             fetch(`${this.AUTH_URI}/auth`, {
-              method: 'POST',
+              method: "POST",
               headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
               },
-              body: JSON.stringify({ verificationCode: this.codeInput.value })
+              body: JSON.stringify({ verificationCode: this.codeInput.value }),
             })
-              .then(response => response.json())
-              .then(data => {
-                window.sessionStorage.setItem('wow-token', data.authToken);
+              .then((response) => response.json())
+              .then((data) => {
+                window.sessionStorage.setItem("wow-token", data.authToken);
                 window.location = `${this.APP_URI}`;
               })
-              .catch(err => {
-                $(this.authModal).modal('show');
+              .catch((err) => {
+                $(this.authModal).modal("show");
                 this.codeInput.value = null;
               });
           });
         })
-        .catch(err => {
-          $(this.authModal).modal('show'); // Request of verification code
+        .catch((err) => {
+          $(this.authModal).modal("show"); // Request of verification code
           this.codeInput.value = null;
         });
     });
